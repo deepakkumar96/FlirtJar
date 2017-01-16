@@ -93,9 +93,9 @@ WSGI_APPLICATION = 'flirtjarproject.wsgi.application'
 DATABASES = {
 'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'fjdb',
-        'USER': 'fjuser',
-        'PASSWORD': '12345six',
+        'NAME': 'flirtjar_db',
+        'USER': 'flirtjar_user',
+        'PASSWORD': '2Baramatpu6na',
         'HOST': 'localhost',
         'PORT': '',
 }
