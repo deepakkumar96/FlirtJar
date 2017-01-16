@@ -1,0 +1,46 @@
+{% load leaflet_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% leaflet_js %}
+    {% leaflet_css %}
+    <script type="text/javascript">
+    function map_init_basic (map, options) {
+        //...
+        {% for account in near_by_users %}
+            L.marker([ {{ account.location.coords.1 }} , {{  account.location.coords.0 }} ])
+             .bindPopup('{{ account.first_name }}')
+             .addTo(map);
+        {% endfor %}
+        //...
+        map.setView(new L.LatLng({{ user.location.coords.1}}, {{ user.location.coords.0}}), 7);
+    }
+    </script>
+    <style>
+
+    .leaflet-container {  /* all maps */
+        width:  1100px;
+        height: 700px;
+    }
+
+    #specialbigmap {
+        height: 800px;
+    }
+
+</style>
+
+</head>
+<body>
+
+    Hello {{ user }}
+
+    {% leaflet_map "my_map" callback="window.map_init_basic" %}
+
+    {% for account in near_by_users %}
+        <br/>{{account.first_name }}  ----- {{ account.location.coords.1 }} , {{  account.location.coords.0 }}
+    {% endfor %}
+</body>
+</html>
