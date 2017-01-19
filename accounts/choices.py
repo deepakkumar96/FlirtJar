@@ -7,12 +7,14 @@ USER_GENDER = (
 
 RELATIONSHIP_STATUS = (
     ('S', 'Single'),
+    ('m', 'Married'),
 )
 
 
 HAIR_COLORS = (
     ('bl', 'Black'),
     ('br', 'Brown'),
+    ('bu', 'Blue'),
 )
 
 EYE_COLORS = (

@@ -249,7 +249,7 @@ class CardView(generics.ListAPIView):
         age = 31
         required_date = date.today()
         required_date = required_date.replace(year=required_date.year - age)
-        print('date : ', required_date)
+        # print('date : ', required_date)
         # Distance Calculation
         user_location = request.user.location
         distance = 1000

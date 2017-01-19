@@ -8,7 +8,7 @@ def custom_exception_handler(exc, context):
     Custom exception handler for customizing rest_framework
     error responses.
     """
-    print('CUSTOM HANDLER')
+    # print('CUSTOM HANDLER')
     # Call REST framework's default exception handler first,
     # to get the standard error response.
     response = exception_handler(exc, context)
@@ -37,7 +37,7 @@ class CustomJSONRenderer(JSONRenderer):
     """
     def render(self, data, accepted_media_type=None, renderer_context=None):
         response_data = {}
-        print('CUSTOM RENDERER')
+        # print('CUSTOM RENDERER')
         #determine the resource name for this request - default to objects if not defined
         # resource = getattr(renderer_context.get('view').get_serializer().Meta, 'resource_name', 'objects')
 

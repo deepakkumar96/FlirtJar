@@ -189,8 +189,8 @@
                     	<ul>
                     		<li><code>first_name</code></li>
                     		<li><code>last_name</code></li>
-                    		<li><code>Gender </code></li>
-                    		<li><code>Dob</code></li>
+                    		<li><code>Gender => Possible Values {M, F, U} </code></li>
+                    		<li><code>Dob  => Format {yyyy-mm-dd}</code></li>
                     		<li><code>Phone no </code></li>
                     		<li><code>Tagline</code></li>
                     		<li><code>Status</code></li>
@@ -199,7 +199,7 @@
                     		<li><code>Salary</code></li>
                     		<li><code>Country</code></li>
                     		<li><code>Hair color</code></li>
-                    		<li><code>Eye color </code></li>
+                    		<li><code>Eye color => Possible Values {}</code> </li>
                     		<li><code>Occupation</code></li>
                     		<li><code>Drink</code></li>
                     		<li><code>Smoking</code></li>
@@ -208,12 +208,19 @@
                     		<li><code>profile_picture</code></li>
                     		<li><code>location</code></li>
                     		<li><code>likes</code></li>
+                            <li><code>loking_for => Possible Values {Same As Gender}</code></li>
                     		<li><code>skipped</code></li>
                     		<li><code>superlikes</code></li>
                     		<li><code>language</code></li>
                     		<li><code>relationship_status</code></li>
                     		<li><code>last_login</code></li>
                     	</ul>
+                        <p>
+                            To Get Possible Information About Every Field
+                            You can make a OPTIONS request to /api/users/ <br>
+                            <b>Eg : </b> <code>http OPTIONS <a href="http://139.59.44.13/api/users/">http://139.59.44.13/api/users/</a>
+                            </code><br> This will return information and possible value for every field of User Profile.
+                        </p>
                     </div>
 
                     <p>
@@ -294,10 +301,31 @@
                    				<td>404</td>
                    				<td>Resource Not Found.</td>
                    			</tr>
+
+                            <tr class="danger">
+                   				<td>400</td>
+                   				<td>Bad Request.</td>
+                   			</tr>
                    		</tbody>
                    </table>
                    </div>
-                    Read Flirt Jar Api <a href="http://flirtjar.com/api/docs/">Documentation</a>.
+
+                   <h2 class="section-heading">Suggestions</h2>
+                   <div>
+                   <br/>
+                     Always append '/' in the end of url : <br>  <b>For Eg:</b>
+                       <b> Instead of : </b> 'site/api/user/me' <br/>
+                       <b> Use This   : </b> 'site/api/user/me/' > (Notice / in the end)
+                     </p>
+
+                   <p>
+                       If you open any api endpoint url from terminal or make request to it then it will work as expected.
+                       But if you call any api endpoint url from browser then it open in a formated browsable api.(Ony for development purpose).
+
+                       So, while calling any api from browser make sure you append '.json' instead of '/' in the end of url.
+                   </p>
+                   </div>
+                    Read Flirt Jar Api <a href="http://139.59.44.13/api/docs/">Documentation</a>.
                     </p>
                 </div>
             </div>
