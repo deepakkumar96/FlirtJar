@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a1bb10df-811f-406e-9161-69a2537efa6d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flirtjarproject/urls.py" afterPath="$PROJECT_DIR$/flirtjarproject/urls.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,10 +17,10 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="local_settings.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="local_settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/flirtjarproject/local_settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-306">
+            <state relative-caret-position="1008">
               <caret line="56" column="19" lean-forward="false" selection-start-line="56" selection-start-column="19" selection-end-line="56" selection-end-column="19" />
               <folding />
             </state>
@@ -31,7 +30,7 @@
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/flirtjarproject/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1260">
+            <state relative-caret-position="3384">
               <caret line="188" column="83" lean-forward="false" selection-start-line="188" selection-start-column="83" selection-end-line="188" selection-end-column="83" />
               <folding />
             </state>
@@ -64,7 +63,7 @@
         <entry file="file://$PROJECT_DIR$/locations/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="72">
-              <caret line="4" column="56" lean-forward="true" selection-start-line="4" selection-start-column="56" selection-end-line="4" selection-end-column="56" />
+              <caret line="4" column="56" lean-forward="false" selection-start-line="4" selection-start-column="56" selection-end-line="4" selection-end-column="56" />
               <folding />
             </state>
           </provider>
@@ -73,8 +72,8 @@
       <file leaf-file-name="ApiIntro.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/locations/templates/location/ApiIntro.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="97">
-              <caret line="202" column="10" lean-forward="true" selection-start-line="202" selection-start-column="10" selection-end-line="202" selection-end-column="10" />
+            <state relative-caret-position="3636">
+              <caret line="202" column="10" lean-forward="false" selection-start-line="202" selection-start-column="10" selection-end-line="202" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -84,7 +83,7 @@
         <entry file="file://$PROJECT_DIR$/accounts/choices.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="144">
-              <caret line="8" column="20" lean-forward="true" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
+              <caret line="8" column="20" lean-forward="false" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -94,17 +93,17 @@
         <entry file="file://$PROJECT_DIR$/profiles/apps.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="126">
-              <caret line="7" column="29" lean-forward="true" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="29" />
+              <caret line="7" column="29" lean-forward="false" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="29" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/profiles/api/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4320">
-              <caret line="251" column="41" lean-forward="true" selection-start-line="251" selection-start-column="41" selection-end-line="251" selection-end-column="41" />
+            <state relative-caret-position="399">
+              <caret line="227" column="51" lean-forward="true" selection-start-line="227" selection-start-column="51" selection-end-line="227" selection-end-column="51" />
               <folding />
             </state>
           </provider>
@@ -113,8 +112,8 @@
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/flirtjarproject/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="46" column="6" lean-forward="false" selection-start-line="46" selection-start-column="6" selection-end-line="46" selection-end-column="6" />
+            <state relative-caret-position="215">
+              <caret line="47" column="83" lean-forward="true" selection-start-line="47" selection-start-column="83" selection-end-line="47" selection-end-column="83" />
               <folding>
                 <element signature="e#649#690#0" expanded="true" />
               </folding>
@@ -176,18 +175,17 @@
         <option value="$PROJECT_DIR$/flirtjarproject/settings.py" />
         <option value="$PROJECT_DIR$/locations/api/views.py" />
         <option value="$PROJECT_DIR$/profiles/apps.py" />
-        <option value="$PROJECT_DIR$/profiles/api/views.py" />
         <option value="$PROJECT_DIR$/accounts/util.py" />
         <option value="$PROJECT_DIR$/accounts/choices.py" />
         <option value="$PROJECT_DIR$/locations/templates/location/ApiIntro.html" />
         <option value="$PROJECT_DIR$/flirtjarproject/urls.py" />
+        <option value="$PROJECT_DIR$/profiles/api/views.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="49" />
     <option name="y" value="24" />
-    <option name="width" value="1317" />
+    <option name="width" value="1366" />
     <option name="height" value="744" />
   </component>
   <component name="ProjectView">
@@ -249,38 +247,10 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="flirtjarproject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="flirtjarproject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="locations" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="flirtjarproject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="flirtjarproject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="flirtjarproject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -453,10 +423,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="49" y="24" width="1317" height="744" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="24" width="1366" height="744" extended-state="6" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16176471" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16107382" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -744,7 +714,7 @@
     <entry file="file://$PROJECT_DIR$/profiles/apps.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
-          <caret line="7" column="29" lean-forward="true" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="29" />
+          <caret line="7" column="29" lean-forward="false" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="29" />
           <folding />
         </state>
       </provider>
@@ -752,7 +722,7 @@
     <entry file="file://$PROJECT_DIR$/locations/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
-          <caret line="4" column="56" lean-forward="true" selection-start-line="4" selection-start-column="56" selection-end-line="4" selection-end-column="56" />
+          <caret line="4" column="56" lean-forward="false" selection-start-line="4" selection-start-column="56" selection-end-line="4" selection-end-column="56" />
           <folding />
         </state>
       </provider>
@@ -767,14 +737,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/profiles/api/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4320">
-          <caret line="251" column="41" lean-forward="true" selection-start-line="251" selection-start-column="41" selection-end-line="251" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/accounts/util.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
@@ -786,41 +748,49 @@
     <entry file="file://$PROJECT_DIR$/accounts/choices.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
-          <caret line="8" column="20" lean-forward="true" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
+          <caret line="8" column="20" lean-forward="false" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/locations/templates/location/ApiIntro.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="97">
-          <caret line="202" column="10" lean-forward="true" selection-start-line="202" selection-start-column="10" selection-end-line="202" selection-end-column="10" />
+        <state relative-caret-position="3636">
+          <caret line="202" column="10" lean-forward="false" selection-start-line="202" selection-start-column="10" selection-end-line="202" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/flirtjarproject/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1260">
+        <state relative-caret-position="3384">
           <caret line="188" column="83" lean-forward="false" selection-start-line="188" selection-start-column="83" selection-end-line="188" selection-end-column="83" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flirtjarproject/local_settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1008">
+          <caret line="56" column="19" lean-forward="false" selection-start-line="56" selection-start-column="19" selection-end-line="56" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/flirtjarproject/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="46" column="6" lean-forward="false" selection-start-line="46" selection-start-column="6" selection-end-line="46" selection-end-column="6" />
+        <state relative-caret-position="215">
+          <caret line="47" column="83" lean-forward="true" selection-start-line="47" selection-start-column="83" selection-end-line="47" selection-end-column="83" />
           <folding>
             <element signature="e#649#690#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/flirtjarproject/local_settings.py">
+    <entry file="file://$PROJECT_DIR$/profiles/api/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-306">
-          <caret line="56" column="19" lean-forward="false" selection-start-line="56" selection-start-column="19" selection-end-line="56" selection-end-column="19" />
+        <state relative-caret-position="399">
+          <caret line="227" column="51" lean-forward="true" selection-start-line="227" selection-start-column="51" selection-end-line="227" selection-end-column="51" />
           <folding />
         </state>
       </provider>
