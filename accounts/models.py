@@ -17,10 +17,10 @@ class Account(AbstractBaseUser):
 
     email = models.EmailField(
         verbose_name='email address',
-        max_length=25,
-        unique=True
+        max_length=100,
+        unique=False
     )
-    oauth_id = models.CharField(max_length=100,)
+    oauth_id = models.CharField(max_length=100, unique=True)
 
     first_name = models.CharField(max_length=40, blank=True)
     last_name = models.CharField(max_length=40, blank=True)
@@ -31,7 +31,7 @@ class Account(AbstractBaseUser):
     looking_for = models.CharField(max_length=2, choices=choices.USER_GENDER, blank=True)
     language = ArrayField(models.CharField(max_length=30, blank=True), blank=True, null=True)
     relationship_status = models.CharField(max_length=2, choices=choices.RELATIONSHIP_STATUS, blank=True)
-    status = models.CharField(max_length=20, blank=True)
+    status = models.CharField(max_length=20, blank=True, choices=choices.STATUS)
     tags = ArrayField(models.CharField(max_length=50, blank=True), blank=True, null=True)  # Tags
 
     # Profile Information
@@ -63,11 +63,12 @@ class Account(AbstractBaseUser):
     likes = models.IntegerField(default=0)
     skipped = models.IntegerField(default=0)
     superlikes = models.IntegerField(default=0)
+    is_instagram_activated = models.BooleanField()
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'oauth_id'
     REQUIRED_FIELDS = []
 
     # Manager
@@ -76,7 +77,7 @@ class Account(AbstractBaseUser):
 
     # Methods
     def __str__(self):
-        return self.email
+        return self.first_name + ' : ' + self.oauth_id
 
     def get_full_name(self):
         return self.first_name + ' ' + self.last_name

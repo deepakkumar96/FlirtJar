@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework_swagger',
     'rest_framework_docs',
-    'debug_toolbar',
+    # 'debug_toolbar',
     'drf_autodocs',
 ]
 
@@ -65,7 +65,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',  # Debug
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',  # Debug
 ]
 
 ROOT_URLCONF = 'flirtjarproject.urls'
@@ -152,10 +152,19 @@ DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.redirects.RedirectsPanel',
 ]
 INTERNAL_IPS = ('127.0.0.1',)
-DEBUG_TOOLBAR_CONFIG = {
-        'INTERCEPT_REDIRECTS': False,
-    }
 """
+
+def custom_show_toolbar(request):
+    return True  # Always show toolbar, for example purposes only.
+
+DEBUG_TOOLBAR_CONFIG = {
+    'INTERCEPT_REDIRECTS': True,
+    'SHOW_TOOLBAR_CALLBACK': custom_show_toolbar,
+    'HIDE_DJANGO_SQL': False,
+    'TAG': 'div',
+    'ENABLE_STACKTRACES': True,
+}
+
 
 SWAGGER_SETTINGS = {
     'USE_SESSION_AUTH': True,
@@ -213,8 +222,9 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/staticfiles/'
+
 MEDIA_URL = '/media/'
-MEDIA_ROOT = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AUTH_USER_MODEL = 'accounts.Account'
 

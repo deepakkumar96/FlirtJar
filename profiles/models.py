@@ -72,7 +72,7 @@ class UserMatch(TimeStamp):
 
     class Meta:
         pass
-        # unique_together = ('user_to', 'user_from')
+        unique_together = ('user_to', 'user_from')
 
     def __str__(self):
         return str(self.user_from) + ' -> ' + str(self.user_to)

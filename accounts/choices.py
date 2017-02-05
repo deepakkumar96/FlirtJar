@@ -3,11 +3,21 @@ USER_GENDER = (
         ('M', 'Male'),
         ('F', 'Female'),
         ('U', 'Unspecified'),
-    )
+)
 
 RELATIONSHIP_STATUS = (
     ('S', 'Single'),
     ('m', 'Married'),
+)
+
+STATUS = (
+    ('walk', 'Walk'),
+    ('coffee', 'Coffee'),
+    ('drink', 'Drink'),
+    ('music', 'Music'),
+    ('long_drive', 'Long Drive'),
+    ('lunch', 'Lunch'),
+    ('dinner', 'Dinner')
 )
 
 

@@ -27,6 +27,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAdminUser
 from django.conf.urls.static import static
 from . import settings
+from profiles.api.views import GiftsListView
 
 @api_view()
 @renderer_classes([OpenAPIRenderer, SwaggerUIRenderer])
@@ -49,6 +50,8 @@ urlpatterns = [
 
     url(r'^api/docs/$', get_swagger_view(title='FlirtJar Api')),
     url(r'^docs/', include('rest_framework_docs.urls')),
+    url(r'api/gifts/$', GiftsListView.as_view(), name='gift_view')
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
@@ -57,6 +60,6 @@ urlpatterns = format_suffix_patterns(urlpatterns)
 if settings.DEBUG:
     import debug_toolbar
     urlpatterns += [
-        url(r'^debug/', include(debug_toolbar.urls)),
+        # url(r'^__debug__/', include(debug_toolbar.urls)),
     ]
 

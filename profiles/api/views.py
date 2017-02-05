@@ -1,6 +1,7 @@
 from rest_framework import views, viewsets, generics, status
 from profiles.models import Rating, ProfileView, UserMatch
 from django.db.models import  Q
+from django.db import IntegrityError
 from accounts.models import Account
 from profiles.serializers import *
 from accounts.serializers import UserSerializer
@@ -84,6 +85,11 @@ class VirtualCurrencyView(generics.RetrieveUpdateAPIView):
 
         serializers = VirtualCurrencySerializer(user_coins)
         return Response(serializers.data)
+
+
+class GiftsListView(generics.ListAPIView):
+    serializer_class = GiftSerializer
+    queryset = Gift.objects.all()
 
 
 class UserGiftView(generics.ListAPIView):
@@ -190,6 +196,7 @@ class UserProfileView(generics.GenericAPIView):
         server time.
 
         """
+
         # print('POST')
         serializer = UserProfileMatchResponseSerializer(data=request.data, many=True)
         if serializer.is_valid():
@@ -199,14 +206,12 @@ class UserProfileView(generics.GenericAPIView):
                 user_from = Account.objects.get(pk=s['user_from'])
                 user_to = Account.objects.get(pk=s['user_to'])
                 if s['response'] != 1 and ProfileView.objects.filter(user_from=user_to, user_to=user_from).filter(Q(response=0) | Q(response=2)).count() > 0:
-                    UserMatch.objects.create(user_from=user_from, user_to=user_to)
-                    # print('Matched - ', user_from, ' -> ', user_to)
+                    try:
+                        UserMatch.objects.create(user_from=user_from, user_to=user_to)
+                    except IntegrityError:
+                        pass
                 else:
                     pass
-                    # print('Unmatch')
-                
-                #  print(user_from, '  --  ', user_to)
-
                 if s['response'] == 0:
                     user_to.likes += 1
 
@@ -217,8 +222,7 @@ class UserProfileView(generics.GenericAPIView):
                     user_to.superlike += 1
 
         else:
-            # print('invalid data')
-            return NotFound('Invalid Json Data.')
+            raise NotFound('Invalid Json Data.')
 
         return Response({'detail': 'data saved.'})
 

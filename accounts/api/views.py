@@ -1,6 +1,6 @@
 from rest_framework import views, viewsets, generics, status, serializers as rest_serializer
 from accounts.models import Account
-from accounts.serializers import UserSerializer, UserSerializerWithoutOAuthId
+from accounts.serializers import UserSerializer, UserSerializerWithoutOAuthId, UserRegisterSerializer
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework.authtoken.models import Token
@@ -77,26 +77,29 @@ class UserListView(generics.ListCreateAPIView):
     permission_classes = (AllowAny,)
 
     def post(self, request, *args, **kwargs):
-        serializer = UserSerializer(data=request.data)
-
-        email = request.data.get('email', None)
+        # email = request.data.get('email', None)
         oauth_id = request.data.get('oauth_id', None)
 
         try:
             # Checking if user already exist
-            if email is not None and oauth_id is not None:
-                existing_user = Account.objects.get(email=email, oauth_id=oauth_id)
+            if oauth_id is not None:
+                existing_user = Account.objects.get(oauth_id=oauth_id)
+                print("EXISTING")
                 return Response({
                     'id': existing_user.pk,
                     'email': existing_user.email,
                     'Token': Token.objects.get(user=existing_user).key
                 })
         except Account.DoesNotExist:
-            pass
+            print("Not EXISTING")
 
+        # Creating New Account
+        print("CREATING")
+        serializer = UserRegisterSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+        print("Valid")
         serializer.save()
-        new_user = Account.objects.get(email=request.data['email'])
+        new_user = Account.objects.get(oauth_id=request.data['oauth_id'])
         # Return the success message with OK HTTP status
         return Response(
             {
@@ -263,7 +266,7 @@ class CurrentUserDetail(generics.RetrieveUpdateAPIView):
             (Docs for this endpoint is same as `PUT /api/users/me`)
 
     """
-    serializer_class = UserSerializerWithoutOAuthId
+    serializer_class = UserSerializer
     queryset = Account.objects.all()
 
     def get_object(self):

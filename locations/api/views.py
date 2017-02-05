@@ -8,7 +8,7 @@ from accounts.serializers import UserSerializer
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
 from django.contrib.gis import measure, geos
-from locations.api.utils import get_default_units
+from locations.api.utils import get_default_units, is_valid_status
 from django.contrib.gis.geos import GEOSException
 
 
@@ -128,18 +128,26 @@ class NearByLocationUsers(generics.RetrieveAPIView):
     serializer_class = UserInfoSerializer
     # renderer_classes = (JSONRenderer,)
 
-    def get(self, request, near_by, unit):
-        if unit not in get_default_units():
-            raise NotFound(unit + ' is not a valid unit.')
+    def get(self, request, *args, **kwargs):
+        if kwargs['unit'] not in get_default_units():
+            raise NotFound(kwargs['unit'] + ' is not a valid unit.')
 
         try:
             user = request.user
-            distance_from_point = {unit: near_by}
+            distance_from_point = {kwargs['unit']: kwargs['near_by']}
 
             if not user.location:
                 raise NotFound('Given users location is undefined.')
 
             near_by_users = Account.gis.filter(location__distance_lte=(user.location, measure.D(**distance_from_point)))
+
+            status_filter = request.query_params.get('status', None)
+            if status_filter and is_valid_status(status_filter):
+                near_by_users = Account.gis.filter(
+                    location__distance_lte=(user.location, measure.D(**distance_from_point)),
+                    status=status_filter
+                )
+
         except Account.DoesNotExist:
             raise NotFound('User not found.')
 
