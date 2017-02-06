@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+from django.conf import settings
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -55,6 +56,7 @@ INSTALLED_APPS = [
     'rest_framework_docs',
     # 'debug_toolbar',
     'drf_autodocs',
+    'push_notifications',
 ]
 
 MIDDLEWARE = [
@@ -235,3 +237,10 @@ LEAFLET_CONFIG = {
   'MAX_ZOOM': 24,
 }
 
+
+""" Push Notification Settings """
+
+PUSH_NOTIFICATIONS_SETTINGS = {
+        "GCM_API_KEY": "[your api key]",
+        "APNS_CERTIFICATE": "/path/to/your/certificate.pem",
+}

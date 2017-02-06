@@ -250,18 +250,23 @@ class CardView(generics.ListAPIView):
         from django.contrib.gis.measure import D
 
         # Calculating required_date according given age
-        age = 31
+        min_age = 18
+        max_age = 32
         required_date = date.today()
-        required_date = required_date.replace(year=required_date.year - age)
+        required_min_date = required_date.replace(year=required_date.year - min_age)
+        required_max_date = required_date.replace(year=required_date.year + max_age)
         # print('date : ', required_date)
         # Distance Calculation
         user_location = request.user.location
         distance = 1000
 
-        users = Account.objects.filter(gender='F')\
-                               .filter(dob__gte=required_date)\
-                               # .filter(location__distance_lte=(user_location, D(km=distance)))
-                               # .order_by('location')
+        gender = request.user.gender
+        print(gender)
+        users = Account.objects.filter(gender=gender)\
+                               .filter(dob__lte=required_min_date)\
+                               .filter(location__distance_lte=(user_location, D(km=distance)))\
+                               .order_by('location')
+
         return Response(UserSerializer(users, many=True).data)
 
 
