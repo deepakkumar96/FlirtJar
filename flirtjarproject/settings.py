@@ -25,7 +25,7 @@ SECRET_KEY = 'x95+tpnljpc0t2m6j2u+#4k3%o2#u3da@j#dsan#=5&k_%$^*3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['139.59.43.74', 'flirtjar.com']
+ALLOWED_HOSTS = ['139.59.44.13', 'flirtjar.com']
 
 
 # Application definition
