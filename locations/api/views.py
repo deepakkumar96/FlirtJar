@@ -8,7 +8,7 @@ from accounts.serializers import UserSerializer
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
 from django.contrib.gis import measure, geos
-from locations.api.utils import get_default_units, is_valid_status
+from locations.api.utils import get_default_units, is_valid_status, is_valid_gender
 from django.contrib.gis.geos import GEOSException
 
 
@@ -142,11 +142,17 @@ class NearByLocationUsers(generics.RetrieveAPIView):
             near_by_users = Account.gis.filter(location__distance_lte=(user.location, measure.D(**distance_from_point)))
 
             status_filter = request.query_params.get('status', None)
+            gender_filetr = request.query_params.get('gender', None)
+            age_filter = request.query_params.get('age', None)
+            print('data : ', gender_filetr, age_filter)
+
             if status_filter and is_valid_status(status_filter):
                 near_by_users = Account.gis.filter(
                     location__distance_lte=(user.location, measure.D(**distance_from_point)),
                     status=status_filter
                 )
+            if gender_filetr and is_valid_gender(gender_filetr):
+                near_by_users = near_by_users.filter(gender=gender_filetr)
 
         except Account.DoesNotExist:
             raise NotFound('User not found.')

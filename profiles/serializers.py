@@ -7,7 +7,7 @@ from accounts.serializers import UserSerializer
 class UserInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
-        fields = ('id', 'email', 'first_name', 'last_name', 'profile_picture', 'location', 'status')
+        fields = ('id', 'email', 'first_name', 'last_name', 'profile_picture', 'location', 'status', 'gender')
 
 
 class UserRatingSerializer(serializers.ModelSerializer):
