@@ -5,16 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a1bb10df-811f-406e-9161-69a2537efa6d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/notifications/api/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/notifications/api/views.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/notifications/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/flirtjarproject.iml" afterPath="$PROJECT_DIR$/.idea/flirtjarproject.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flirtjarproject/local_settings.py" afterPath="$PROJECT_DIR$/flirtjarproject/local_settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flirtjarproject/settings.py" afterPath="$PROJECT_DIR$/flirtjarproject/settings.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/profiles/api/views.py" afterPath="$PROJECT_DIR$/profiles/api/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/requirements.txt" afterPath="$PROJECT_DIR$/requirements.txt" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -44,8 +36,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/profiles/api/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="499">
-              <caret line="266" column="95" lean-forward="true" selection-start-line="266" selection-start-column="95" selection-end-line="266" selection-end-column="95" />
+            <state relative-caret-position="463">
+              <caret line="264" column="10" lean-forward="false" selection-start-line="264" selection-start-column="10" selection-end-line="264" selection-end-column="10" />
               <folding>
                 <element signature="e#0#60#0" expanded="true" />
                 <element signature="e#958#1357#1" expanded="false" />
@@ -720,8 +712,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/profiles/api/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="499">
-          <caret line="266" column="95" lean-forward="true" selection-start-line="266" selection-start-column="95" selection-end-line="266" selection-end-column="95" />
+        <state relative-caret-position="463">
+          <caret line="264" column="10" lean-forward="false" selection-start-line="264" selection-start-column="10" selection-end-line="264" selection-end-column="10" />
           <folding>
             <element signature="e#0#60#0" expanded="true" />
             <element signature="e#958#1357#1" expanded="false" />

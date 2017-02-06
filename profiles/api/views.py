@@ -261,7 +261,8 @@ class CardView(generics.ListAPIView):
         distance = 1000
 
         gender = request.user.gender
-        print(gender)
+        gender = 'F' if gender == 'M' else 'M'
+        # print(gender)
         users = Account.objects.filter(gender=gender)\
                                .filter(dob__lte=required_min_date)\
                                .filter(location__distance_lte=(user_location, D(km=distance)))\
