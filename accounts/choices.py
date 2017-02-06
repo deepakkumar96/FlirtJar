@@ -14,10 +14,11 @@ STATUS = (
     ('walk', 'Walk'),
     ('coffee', 'Coffee'),
     ('drink', 'Drink'),
-    ('music', 'Music'),
     ('long_drive', 'Long Drive'),
     ('lunch', 'Lunch'),
-    ('dinner', 'Dinner')
+    ('dinner', 'Dinner'),
+    ('detour', 'Detour'),
+    ('movie', 'Movie')
 )
 
 

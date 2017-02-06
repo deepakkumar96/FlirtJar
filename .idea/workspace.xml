@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a1bb10df-811f-406e-9161-69a2537efa6d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/locations/api/utils.py" afterPath="$PROJECT_DIR$/locations/api/utils.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/locations/api/views.py" afterPath="$PROJECT_DIR$/locations/api/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/profiles/serializers.py" afterPath="$PROJECT_DIR$/profiles/serializers.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/accounts/choices.py" afterPath="$PROJECT_DIR$/accounts/choices.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -58,7 +55,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/locations/api/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="160">
@@ -103,11 +100,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="choices.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="choices.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/accounts/choices.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+            <state relative-caret-position="360">
+              <caret line="20" column="22" lean-forward="true" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -166,7 +163,6 @@
         <option value="$PROJECT_DIR$/profiles/models.py" />
         <option value="$PROJECT_DIR$/flirtjarproject/urls.py" />
         <option value="$PROJECT_DIR$/flirtjarproject/local_settings.py" />
-        <option value="$PROJECT_DIR$/accounts/choices.py" />
         <option value="$PROJECT_DIR$/accounts/managers.py" />
         <option value="$PROJECT_DIR$/accounts/models.py" />
         <option value="$PROJECT_DIR$/flirtjarproject/settings.py" />
@@ -174,6 +170,7 @@
         <option value="$PROJECT_DIR$/profiles/serializers.py" />
         <option value="$PROJECT_DIR$/locations/api/utils.py" />
         <option value="$PROJECT_DIR$/locations/api/views.py" />
+        <option value="$PROJECT_DIR$/accounts/choices.py" />
       </list>
     </option>
   </component>
@@ -286,6 +283,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="flirtjarproject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="flirtjarproject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="flirtjarproject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="accounts" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -774,14 +785,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/accounts/choices.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/locations/api/utils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
@@ -800,6 +803,14 @@
             <element signature="e#2324#4139#1" expanded="false" />
             <element signature="e#5691#7478#1" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/accounts/choices.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="20" column="22" lean-forward="true" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
