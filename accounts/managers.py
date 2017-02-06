@@ -2,20 +2,20 @@ from django.contrib.auth.models import ( BaseUserManager, AbstractBaseUser)
 
 
 class AccountManager(BaseUserManager):
-    def create_user(self, email, password=None, **kwargs):
-        if not email:
-            raise ValueError('Users must have a valid email address.')
+    def create_user(self, oauth_id, password=None, **kwargs):
+        if not oauth_id:
+            raise ValueError('Users must have a valid oauth_id.')
 
         account = self.model(
-            email=self.normalize_email(email),
+            oauth_id=self.normalize_email(oauth_id),
         )
 
         account.set_password(password)
         account.save()
         return account
 
-    def create_superuser(self, email, password, **kwargs):
-        account = self.create_user(email, password, **kwargs)
+    def create_superuser(self, oauth_id, password, **kwargs):
+        account = self.create_user(oauth_id, password, **kwargs)
 
         account.is_admin = True
         account.save()

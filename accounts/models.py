@@ -63,7 +63,7 @@ class Account(AbstractBaseUser):
     likes = models.IntegerField(default=0)
     skipped = models.IntegerField(default=0)
     superlikes = models.IntegerField(default=0)
-    is_instagram_activated = models.BooleanField()
+    is_instagram_activated = models.BooleanField(default=False)
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
