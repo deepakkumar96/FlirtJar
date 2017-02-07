@@ -1,6 +1,7 @@
 from rest_framework import views, viewsets, generics, status
 from profiles.models import Rating, ProfileView, UserMatch
-from django.db.models import  Q
+from django.db.models import Q
+from django.contrib.gis.measure import D
 from django.db import IntegrityError
 from accounts.models import Account
 from profiles.serializers import *
@@ -11,6 +12,7 @@ from rest_framework.exceptions import NotFound
 from rest_framework.permissions import IsAuthenticated
 from accounts.permissions import AllowOwner, AllowOwnerOrReadOnly
 from .util import get_user_match
+from datetime import date
 
 
 class UserRatingeDetail(generics.RetrieveAPIView):
@@ -246,27 +248,40 @@ class CardView(generics.ListAPIView):
     queryset = Account.objects.all()
 
     def get(self, request, *args, **kwargs):
-        from datetime import date
-        from django.contrib.gis.measure import D
-
-        # Calculating required_date according given age
-        min_age = 18
+        min_age = 16
         max_age = 32
-        required_date = date.today()
-        required_min_date = required_date.replace(year=required_date.year - min_age)
-        required_max_date = required_date.replace(year=required_date.year + max_age)
-        # print('date : ', required_date)
-        # Distance Calculation
         user_location = request.user.location
         distance = 1000
 
-        gender = request.user.gender
-        gender = 'F' if gender == 'M' else 'M'
-        # print(gender)
-        users = Account.objects.filter(gender=gender)\
-                               .filter(dob__lte=required_min_date)\
+        min_age_query = request.query_params.get('min_age', None)
+        max_age_query = request.query_params.get('max_age', None)
+        gender = request.query_params.get('gender', None)
+
+        try:
+            # changing min & max age according to query params if passed
+            min_age = int(min_age_query if min_age_query else min_age)
+            max_age = int(max_age_query if max_age_query else max_age)
+            print('ages : ', min_age, max_age)
+        except:
+            pass
+
+        # Calculating required_date according given age
+        today = date.today()
+        required_min_date = today.replace(year=today.year - min_age)
+        required_max_date = today.replace(year=today.year - max_age)
+
+        users = Account.objects.filter(dob__gte=required_max_date, dob__lte=required_min_date)\
                                .filter(location__distance_lte=(user_location, D(km=distance)))\
                                .order_by('location')
+
+        if gender:
+            if gender == 'M':
+                users = users.filter(gender='M')
+            elif gender == 'F':
+                users = users.filter(gender='F')
+        else:
+            # Filtering with opposite gender
+            users = users.filter(gender=('F' if request.user.gender == 'M' else 'M'))
 
         return Response(UserSerializer(users, many=True).data)
 
