@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'accounts',
     'profiles',
     'locations',
+    'notifications',
 
     # Third-Party Apps
     'rest_framework',

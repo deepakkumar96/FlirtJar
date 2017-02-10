@@ -1,18 +1,17 @@
-from rest_framework import views, viewsets, generics, status
-from profiles.models import Rating, ProfileView, UserMatch
 from django.db.models import Q
 from django.contrib.gis.measure import D
 from django.db import IntegrityError
-from accounts.models import Account
+
+from rest_framework import views, viewsets, generics, status
+from rest_framework.response import Response
+from rest_framework.exceptions import NotFound
+from datetime import date
+
+from notifications.models import Notification
+from notifications.util import get_notification_icon, create_notification
 from profiles.serializers import *
 from accounts.serializers import UserSerializer
-from rest_framework.response import Response
-from .util import convert_to_reponseid, is_valid_response
-from rest_framework.exceptions import NotFound
-from rest_framework.permissions import IsAuthenticated
-from accounts.permissions import AllowOwner, AllowOwnerOrReadOnly
-from .util import get_user_match
-from datetime import date
+from .util import convert_to_reponseid, is_valid_response, get_user_match
 
 
 class UserRatingeDetail(generics.RetrieveAPIView):
@@ -199,21 +198,28 @@ class UserProfileView(generics.GenericAPIView):
 
         """
 
-        # print('POST')
         serializer = UserProfileMatchResponseSerializer(data=request.data, many=True)
         if serializer.is_valid():
-            serializer.save()
+            notifications = []
             for s in serializer.data:
-                # Making User Match
+                print('s', s)
+                # Checking For UserMatch, Likes, SuperLikes, Views
                 user_from = Account.objects.get(pk=s['user_from'])
                 user_to = Account.objects.get(pk=s['user_to'])
                 if s['response'] != 1 and ProfileView.objects.filter(user_from=user_to, user_to=user_from).filter(Q(response=0) | Q(response=2)).count() > 0:
                     try:
+                        print('Enter ', user_from, ' ', user_to)
                         UserMatch.objects.create(user_from=user_from, user_to=user_to)
+                        # Notifying User's about their match
+                        notifications.append(
+                            create_notification(user_from, 'You have a match with ' + user_to.first_name, Notification.MATCH),
+                        )
+                        notifications.append(
+                            create_notification(user_to, 'You have a match with ' + user_from.first_name, Notification.MATCH)
+                        )
                     except IntegrityError:
                         pass
-                else:
-                    pass
+
                 if s['response'] == 0:
                     user_to.likes += 1
 
@@ -221,8 +227,12 @@ class UserProfileView(generics.GenericAPIView):
                     user_to.skipped += 1
 
                 if s['response'] == 2:
-                    user_to.superlike += 1
+                    user_to.superlikes += 1
 
+                ProfileView.objects.create(user_from=user_from, user_to=user_to, response=s['response'])
+
+            # Creating Notification Inside Database
+            print(Notification.objects.bulk_create(notifications))
         else:
             raise NotFound('Invalid Json Data.')
 
@@ -261,7 +271,6 @@ class CardView(generics.ListAPIView):
             # changing min & max age according to query params if passed
             min_age = int(min_age_query if min_age_query else min_age)
             max_age = int(max_age_query if max_age_query else max_age)
-            print('ages : ', min_age, max_age)
         except:
             pass
 
@@ -281,8 +290,27 @@ class CardView(generics.ListAPIView):
                 users = users.filter(gender='F')
         else:
             # Filtering with opposite gender
+            print('oppo.')
             users = users.filter(gender=('F' if request.user.gender == 'M' else 'M'))
 
         return Response(UserSerializer(users, many=True).data)
+
+
+class ProfileRecommendationList(generics.ListAPIView):
+    """
+    This returns a list of recommended profiles for a particular user.
+    And this is available for only those users whose 'instagram' account is activated.
+    """
+    serializer_class = UserSerializer
+
+    def get_queryset(self):
+        from random import sample
+        total_records = Account.objects.all().count()
+        result_count = 10
+        if result_count > total_records:
+            result_count = total_records
+        rand_ids = sample(xrange(1, total_records), result_count-1)
+        print(rand_ids)
+        return Account.objects.filter(id__in=rand_ids)
 
 

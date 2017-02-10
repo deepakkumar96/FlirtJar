@@ -84,22 +84,20 @@ class UserListView(generics.ListCreateAPIView):
             # Checking if user already exist
             if oauth_id is not None:
                 existing_user = Account.objects.get(oauth_id=oauth_id)
-                print("EXISTING")
                 return Response({
                     'id': existing_user.pk,
                     'email': existing_user.email,
                     'Token': Token.objects.get(user=existing_user).key
                 })
         except Account.DoesNotExist:
-            print("Not EXISTING")
+            pass
 
         # Creating New Account
-        print("CREATING")
         serializer = UserRegisterSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        print("Valid")
         serializer.save()
         new_user = Account.objects.get(oauth_id=request.data['oauth_id'])
+
         # Return the success message with OK HTTP status
         return Response(
             {

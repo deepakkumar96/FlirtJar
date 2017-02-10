@@ -44,13 +44,16 @@ urlpatterns = [
     url(r'^api/users/', include('accounts.urls')),
     url(r'^api/profile/', include('profiles.urls')),
     url(r'^api/location/', include('locations.urls')),
+    url(r'^api/notifications/', include('notifications.urls')),
     url(r'^admin/', admin.site.urls),
     # url(r'^api/auth/', include('rest_auth.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     url(r'^api/docs/$', get_swagger_view(title='FlirtJar Api')),
     url(r'^docs/', include('rest_framework_docs.urls')),
-    url(r'api/gifts/$', GiftsListView.as_view(), name='gift_view')
+
+    # Urls that doesn't belong to any specific app
+    url(r'api/gifts/$', GiftsListView.as_view(), name='gift_view'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

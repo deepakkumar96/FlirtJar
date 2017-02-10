@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'accounts',
     'profiles',
     'locations',
+    'notifications',
 
     # Third-Party Apps
     'rest_framework',
@@ -55,6 +56,7 @@ INSTALLED_APPS = [
     'rest_framework_docs',
     # 'debug_toolbar',
     'push_notifications',
+
 ]
 
 MIDDLEWARE = [
