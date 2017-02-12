@@ -3,14 +3,16 @@ from .models import Notification
 
 def get_notification_icon(type):
 
+    url = "http://139.59.44.13/media/gifts/"
+
     if type == Notification.LIKE:
         return "like.png"
     elif type == Notification.CRUSH:
         return "crush.png"
     elif type == Notification.COINS:
-        return "coin.png"
+        return url+'coins.png'
     elif type == Notification.MATCH:
-        return "http://127.0.0.1:8000/media/gifts/1.jpg"
+        return url+'match.png'
     elif type == Notification.VIEW:
         return "profile_view.png"
     elif type == Notification.FJ:

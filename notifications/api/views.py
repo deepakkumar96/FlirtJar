@@ -28,13 +28,13 @@ class NotificationListView(generics.ListAPIView):
     serializer_class = NotificationSerializer
 
     def get_queryset(self):
-        print('query')
         return Notification.objects.filter(user=self.request.user, is_seen=False)
 
     def get(self, request, *args, **kwargs):
         notifications = self.get_queryset()
         serializers_data = NotificationSerializer(notifications, many=True).data
         notifications.update(is_seen=True)  # updating seen notifications
+        print(request.build_absolute_uri())
         return Response(serializers_data)
 
 
