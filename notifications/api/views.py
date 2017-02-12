@@ -9,6 +9,22 @@ from profiles.serializers import *
 
 
 class NotificationListView(generics.ListAPIView):
+    """
+    Notification API:
+
+	/api/notifications
+
+	This return a list of all the new notification and after returning notification server also delete the returned notifications, so you wont get
+	the same notifications again and again.
+
+	Content of notification is:
+
+	1. notification_text
+	2. timestamp : date and time
+	3. notification_type : type of notification it can be MATCH, CRUSH, FJ_Team
+	4. notification_icon: icon of the notification
+
+    """
     serializer_class = NotificationSerializer
 
     def get_queryset(self):
