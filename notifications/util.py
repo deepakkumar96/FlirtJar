@@ -3,7 +3,7 @@ from .models import Notification
 
 def get_notification_icon(type):
 
-    url = "http://139.59.44.13/media/gifts/"
+    url = "http://139.59.44.13/media/notification_icons/"
 
     if type == Notification.LIKE:
         return "like.png"
