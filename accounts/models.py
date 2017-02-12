@@ -93,7 +93,11 @@ class Account(AbstractBaseUser):
 
     @property
     def score(self):
-        return (self.likes + (self.superlikes*2))
+        total = (self.likes+self.superlikes+self.skipped)
+        if total <= 0:
+            return 5
+        else:
+            return ((self.likes + self.superlikes)/total)*10
 
     @property
     def is_staff(self):

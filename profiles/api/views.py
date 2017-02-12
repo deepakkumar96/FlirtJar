@@ -5,6 +5,7 @@ from django.db import IntegrityError
 from rest_framework import views, viewsets, generics, status
 from rest_framework.response import Response
 from rest_framework.exceptions import NotFound
+from rest_framework.permissions import IsAuthenticated
 from datetime import date
 
 from notifications.models import Notification
@@ -12,6 +13,7 @@ from notifications.util import get_notification_icon, create_notification
 from profiles.serializers import *
 from accounts.serializers import UserSerializer
 from .util import convert_to_reponseid, is_valid_response, get_user_match
+from accounts.permissions import AllowOwner, IsInstagramUser
 
 
 class UserRatingeDetail(generics.RetrieveAPIView):
@@ -229,6 +231,7 @@ class UserProfileView(generics.GenericAPIView):
                 if s['response'] == 2:
                     user_to.superlikes += 1
 
+                user_to.save()
                 ProfileView.objects.create(user_from=user_from, user_to=user_to, response=s['response'])
 
             # Creating Notification Inside Database
@@ -258,6 +261,7 @@ class CardView(generics.ListAPIView):
     queryset = Account.objects.all()
 
     def get(self, request, *args, **kwargs):
+        # Default values for filter
         min_age = 16
         max_age = 32
         user_location = request.user.location
@@ -279,10 +283,12 @@ class CardView(generics.ListAPIView):
         required_min_date = today.replace(year=today.year - min_age)
         required_max_date = today.replace(year=today.year - max_age)
 
+        # Filtering With required date and location
         users = Account.objects.filter(dob__gte=required_max_date, dob__lte=required_min_date)\
                                .filter(location__distance_lte=(user_location, D(km=distance)))\
                                .order_by('location')
 
+        # Filtering With Gender
         if gender:
             if gender == 'M':
                 users = users.filter(gender='M')
@@ -290,7 +296,6 @@ class CardView(generics.ListAPIView):
                 users = users.filter(gender='F')
         else:
             # Filtering with opposite gender
-            print('oppo.')
             users = users.filter(gender=('F' if request.user.gender == 'M' else 'M'))
 
         return Response(UserSerializer(users, many=True).data)
@@ -302,13 +307,16 @@ class ProfileRecommendationList(generics.ListAPIView):
     And this is available for only those users whose 'instagram' account is activated.
     """
     serializer_class = UserSerializer
+    permission_classes = (IsAuthenticated, IsInstagramUser)
 
     def get_queryset(self):
         from random import sample
         total_records = Account.objects.all().count()
         result_count = 10
+
         if result_count > total_records:
             result_count = total_records
+
         rand_ids = sample(xrange(1, total_records), result_count-1)
         print(rand_ids)
         return Account.objects.filter(id__in=rand_ids)
