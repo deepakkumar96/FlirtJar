@@ -30,6 +30,7 @@ class Notification(models.Model):
     COINS = 'coins'
     VIEW = 'view'
     FJ = 'fj_team'
+    GIFT = 'gift'
 
     NOTIFICATION_TYPE = (
         (MATCH, 'User Match'),
@@ -37,7 +38,8 @@ class Notification(models.Model):
         (CRUSH, 'Crush or Superlike'),
         (COINS,  'Coins'),
         (VIEW,   'Profile View'),
-        (FJ, 'FlirtJar Team')
+        (FJ, 'FlirtJar Team'),
+        (GIFT, 'Gift')
     )
 
     user = models.ForeignKey(

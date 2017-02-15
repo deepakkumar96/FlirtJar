@@ -286,6 +286,7 @@ class CardView(generics.ListAPIView):
         # Filtering With required date and location
         users = Account.objects.filter(dob__gte=required_max_date, dob__lte=required_min_date)\
                                .filter(location__distance_lte=(user_location, D(km=distance)))\
+                               .filter(show_me_on_jar=True)\
                                .order_by('location')
 
         # Filtering With Gender

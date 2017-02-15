@@ -65,6 +65,9 @@ class Account(AbstractBaseUser):
     superlikes = models.IntegerField(default=0)
     is_instagram_activated = models.BooleanField(default=False)
 
+    show_me_on_jar = models.BooleanField(default=True)
+    show_me_on_nearby = models.BooleanField(default=True)
+
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 

@@ -139,18 +139,18 @@ class NearByLocationUsers(generics.RetrieveAPIView):
             if not user.location:
                 raise NotFound('Given users location is undefined.')
 
-            near_by_users = Account.gis.filter(location__distance_lte=(user.location, measure.D(**distance_from_point)))
+            near_by_users = Account.gis.filter(
+                location__distance_lte=(user.location, measure.D(**distance_from_point)),
+                show_me_on_nearby=True
+            )
 
             status_filter = request.query_params.get('status', None)
             gender_filetr = request.query_params.get('gender', None)
             age_filter = request.query_params.get('age', None)
-            print('data : ', gender_filetr, age_filter)
 
             if status_filter and is_valid_status(status_filter):
-                near_by_users = Account.gis.filter(
-                    location__distance_lte=(user.location, measure.D(**distance_from_point)),
-                    status=status_filter
-                )
+                near_by_users = near_by_users.filter(status=status_filter)
+
             if gender_filetr and is_valid_gender(gender_filetr):
                 near_by_users = near_by_users.filter(gender=gender_filetr)
 
