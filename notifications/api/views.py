@@ -45,13 +45,13 @@ class NotificationToggleView(generics.UpdateAPIView):
         It accepts id of the notification in the URL.
     """
     serializer_class = NotificationSerializer
-    lookup_url_kwarg = 'noti_pk'
+    lookup_url_kwarg = 'noti_id'
 
     def update(self, request, *args, **kwargs):
 
         try:
             print(self.lookup_url_kwarg)
-            notification = Notification.objects.get(pk=kwargs['noti_pk'])
+            notification = Notification.objects.get(pk=kwargs['noti_id'])
         except Notification.DoesNotExist:
             raise NotFound({'detail': 'notification not found with given id.'})
 

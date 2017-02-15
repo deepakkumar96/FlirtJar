@@ -210,7 +210,7 @@ class UserProfileView(generics.GenericAPIView):
                 user_to = Account.objects.get(pk=s['user_to'])
                 if s['response'] != 1 and ProfileView.objects.filter(user_from=user_to, user_to=user_from).filter(Q(response=0) | Q(response=2)).count() > 0:
                     try:
-                        print('Enter ', user_from, ' ', user_to)
+                        # print('Enter ', user_from, ' ', user_to)
                         UserMatch.objects.create(user_from=user_from, user_to=user_to)
                         # Notifying User's about their match
                         notifications.append(
@@ -230,6 +230,9 @@ class UserProfileView(generics.GenericAPIView):
 
                 if s['response'] == 2:
                     user_to.superlikes += 1
+                    notifications.append(
+                        create_notification(user_to, user_from.first_name + ' has crush on you.', Notification.MATCH)
+                    )
 
                 user_to.save()
                 ProfileView.objects.create(user_from=user_from, user_to=user_to, response=s['response'])
