@@ -27,6 +27,52 @@ class UserRatingeDetail(generics.RetrieveAPIView):
 
 
 class UserImageListView(generics.ListCreateAPIView):
+    """
+        get:
+            # Returns an array of all the user images except profile picture
+
+        example : GET /api/profile/pictures/
+        <pre>
+            {
+                  "errors": {},
+                  "result": [
+
+                    {
+                      "id": 25,
+                      "image": "https://www.getpostman.com/img/download/install_postman.png?0e807c25fad195b7633ac0a64ee99ea2&"
+                    },
+
+                    {
+                      "id": 24,
+                      "image": "http://www.django-rest-framework.org/img/logo.png"
+                    },
+
+                  ]
+            }
+        </pre>
+        ---
+
+        post:
+            # Takes an array of images and store it for currently logged-in user.
+
+        example : POST /api/profile/pictures/
+        Request Body :
+        <pre>
+            [
+
+{
+    "image": "image-url-1"
+},
+
+{
+    "image": "image-url-2"
+}
+
+]
+        </pre>
+
+    """
+
     serializer_class = UserImageSerializer
 
     def get_queryset(self):

@@ -80,6 +80,6 @@ class GiftSendSerializer(serializers.ModelSerializer):
 class UserImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserImages
-        fields = ('id', 'image')    
+        fields = ('id', 'image')
 
 
