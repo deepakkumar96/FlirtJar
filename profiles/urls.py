@@ -13,4 +13,5 @@ urlpatterns = [
 
     url(r'^cards/$', views.CardView.as_view(), name='cards'),
     url(r'recommendation/$', views.ProfileRecommendationList.as_view(), name='profile_recommendation'),
+    url(r'^pictures/$', views.UserImageListView.as_view(), name='cards'),
 ]

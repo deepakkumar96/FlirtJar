@@ -119,3 +119,11 @@ class UserGifts(TimeStamp):
 
     def __str__(self):
         return str(self.user_from) + ' -> ' + str(self.user_to) + ' : ' + str(self.gift)
+
+
+class UserImages(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name='images'
+    )
+    image = models.CharField(max_length=300)

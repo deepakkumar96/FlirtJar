@@ -26,6 +26,19 @@ class UserRatingeDetail(generics.RetrieveAPIView):
     lookup_field = 'pk'
 
 
+class UserImageListView(generics.ListCreateAPIView):
+    serializer_class = UserImageSerializer
+
+    def get_queryset(self):
+        return UserImages.objects.filter(user=self.request.user)
+
+    def create(self, request, *args, **kwargs):
+        serializer = UserImageSerializer(data=request.data, many=True)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save(user=request.user)
+        return Response({'data': 'saved'})
+
+
 class VirtualCurrencyView(generics.RetrieveUpdateAPIView):
     """
 

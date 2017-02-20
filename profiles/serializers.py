@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Rating, ProfileView, UserMatch, VirtualCurrency, Gift, UserGifts
+from .models import Rating, ProfileView, UserMatch, VirtualCurrency, Gift, UserGifts, UserImages
 from accounts.models import Account
 from accounts.serializers import UserSerializer
 
@@ -75,4 +75,11 @@ class GiftSendSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserGifts
         fields = ('user_from', 'user_to', 'gift')
+
+
+class UserImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserImages
+        fields = ('id', 'image')    
+
 
