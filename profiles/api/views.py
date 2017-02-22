@@ -323,11 +323,16 @@ class CardView(generics.ListAPIView):
     queryset = Account.objects.all()
 
     def get(self, request, *args, **kwargs):
+
         # Default values for filter
         min_age = 16
         max_age = 32
         user_location = request.user.location
         distance = 1000
+
+        # Validating
+        if user_location is None:
+            raise NotFound({'detail': 'Your location is undefined.'})
 
         min_age_query = request.query_params.get('min_age', None)
         max_age_query = request.query_params.get('max_age', None)
