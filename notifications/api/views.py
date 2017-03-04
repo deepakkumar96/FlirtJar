@@ -2,10 +2,13 @@ from rest_framework import views, viewsets, generics, status
 from rest_framework.response import Response
 from rest_framework.exceptions import NotFound
 
+from push_notifications.models import APNSDevice, GCMDevice
+
 from accounts.serializers import UserSerializer
 from notifications.models import Notification
 from notifications.serializers import NotificationSerializer
 from profiles.serializers import *
+from .util import DeviceType
 
 
 class NotificationListView(generics.ListAPIView):
@@ -60,14 +63,30 @@ class NotificationToggleView(generics.UpdateAPIView):
         return Response(self.get_serializer(notification).data)
 
 
-
-
-class AddDeviceRegistrationView(generics.RetrieveAPIView):
+class AddDeviceRegistrationView(views.APIView):
     """To Send User device gcm_registration_id or apns_token"""
 
-    queryset = Account.objects.all()
-    serializer_class = UserInfoSerializer
-
     def post(self, request, *args, **kwargs):
-        pass
+        device_type = request.data.get('device_type', None)
+        registration_id = request.data.get('registration_id', None)
 
+        if (not device_type) or (not registration_id):
+            raise NotFound('either registration_id or device is missing.')
+
+        device = DeviceType.get_device_type(device_type)  # Getting device type
+
+        if device == DeviceType.IOS:
+            created_device, created = APNSDevice.objects.get_or_create(registration_id=registration_id, user=request.user, name=DeviceType.IOS)
+
+        elif device == DeviceType.ANDROID:
+            pass
+
+        else:
+            raise NotFound('device type is unknown.')
+
+        return Response(
+            {
+                'registration_id': created_device.registration_id,
+                'device_type': created_device.name
+            }
+        )

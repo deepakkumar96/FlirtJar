@@ -4,27 +4,6 @@ from flirtjarproject import settings
 from profiles.models import TimeStamp
 
 
-""""
-class GiftMessage(TimeStamp):
-    user_from = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        related_name='gift_messages',
-        related_query_name='gift_message'
-    )
-
-    user_to = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        related_name='gift_messages',
-        related_query_name='gift_message'
-    )
-
-
-class Gift(models.Model):
-    pass
-
-"""
-
-
 class Message(models.Model):
     user_from = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -37,7 +16,7 @@ class Message(models.Model):
         on_delete=models.CASCADE
     )
 
-    message_text = models.CharField(max_length=400)
+    message_text = models.CharField(max_length=400, null=True)
     sent_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     read_at = models.DateTimeField(blank=True, null=True)
     is_seen = models.BooleanField(default=False)

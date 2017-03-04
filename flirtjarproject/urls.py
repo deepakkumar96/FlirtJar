@@ -29,6 +29,7 @@ from django.conf.urls.static import static
 from . import settings
 from profiles.api.views import GiftsListView
 
+
 @api_view()
 @renderer_classes([OpenAPIRenderer, SwaggerUIRenderer])
 @permission_classes((AllowAny, ))
@@ -45,6 +46,7 @@ urlpatterns = [
     url(r'^api/profile/', include('profiles.urls')),
     url(r'^api/location/', include('locations.urls')),
     url(r'^api/notifications/', include('notifications.urls')),
+    url(r'chat/', include('chat.urls')),
     url(r'^admin/', admin.site.urls),
     # url(r'^api/auth/', include('rest_auth.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
@@ -54,6 +56,7 @@ urlpatterns = [
 
     # Urls that doesn't belong to any specific app
     url(r'api/gifts/$', GiftsListView.as_view(), name='gift_view'),
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
