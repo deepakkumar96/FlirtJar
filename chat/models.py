@@ -1,4 +1,4 @@
-from atk import relation_type_for_name
+
 from django.contrib.gis.db import models
 from flirtjarproject import settings
 from profiles.models import TimeStamp
