@@ -37,4 +37,5 @@ drf-autodocs==0.4.1
 drfdocs==0.0.11
 geocoder==1.19.0
 django-push-notifications
+pyfcm
 
