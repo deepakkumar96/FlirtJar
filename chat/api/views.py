@@ -24,12 +24,12 @@ class MessageListView(generics.ListCreateAPIView):
             try:
                 user_from = Account.objects.get(pk=user_from)
                 print(user_from)
-                new_messages = Message.objects.filter(user_to=request.user, user_from=user_from, is_seen=False)
+                new_messages = Message.objects.filter(user_to=request.user, user_from=user_from, is_seen=False)[:25]
             except Account.DoesNotExist:
                 raise NotFound('user_from is invalid user id.')
 
             serializer = MessageSerializer(new_messages, many=True).data
-            new_messages.delete()
+            # new_messages.delete()
             return Response(serializer)
         else:
             return Response([])

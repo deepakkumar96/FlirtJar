@@ -12,5 +12,7 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         user_device = instance.user_to.apnsdevice_set.first()
         if user_device:
-            user_device.send_message('You have got new message')
-
+            try:
+                user_device.send_message('You have got new message')
+            except:
+                print('unable to send push notifications.')
