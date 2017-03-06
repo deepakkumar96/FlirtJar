@@ -19,10 +19,8 @@ def get_user_match(user):
     """
     Returns all the matches of the given user
     """
-    matches = []
     for um in UserMatch.objects.select_related('user_from').filter(user_to=user.pk):
-        matches.append(um.user_from)
+        yield um.user_from
 
     for um in UserMatch.objects.select_related('user_to').filter(user_from=user.pk):
-        matches.append(um.user_to)
-    return matches
+        yield um.user_to

@@ -6,16 +6,13 @@ from rest_framework.exceptions import NotFound
 from push_notifications.models import GCMDevice
 
 from chat.models import Message
-from chat.serializers import MessageSerializer
+from chat.serializers import MessageReceiveSerializer, MessageSendSerializer
 from accounts.models import Account
 
 
 class MessageListView(generics.ListCreateAPIView):
-    serializer_class = MessageSerializer
+    serializer_class = MessageSendSerializer
     queryset = Message.objects.all()
-
-    def get_queryset(self):
-        print('Hello')
 
     def list(self, request, *args, **kwargs):
         user_from = request.query_params.get('user_from', None)
@@ -28,7 +25,7 @@ class MessageListView(generics.ListCreateAPIView):
             except Account.DoesNotExist:
                 raise NotFound('user_from is invalid user id.')
 
-            serializer = MessageSerializer(new_messages, many=True).data
+            serializer = MessageReceiveSerializer(new_messages, many=True).data
             # new_messages.delete()
             return Response(serializer)
         else:
