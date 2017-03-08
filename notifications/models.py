@@ -1,6 +1,9 @@
 from django.db import models
 from flirtjarproject import settings
 from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
+
+from push_notifications.models import Device
 
 """"
 
@@ -21,6 +24,10 @@ class PushNotification(TimeStamp):
     pass
 
 """
+
+
+class AndroidDevice(Device):
+    registration_id = models.CharField(verbose_name=_("Registration ID"), max_length=200, unique=True)
 
 
 class Notification(models.Model):
@@ -56,3 +63,5 @@ class Notification(models.Model):
 
     def __str__(self):
         return str(self.user) + ' : ' + self.notification_type
+
+

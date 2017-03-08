@@ -5,7 +5,7 @@ from rest_framework.exceptions import NotFound
 from push_notifications.models import APNSDevice, GCMDevice
 
 from accounts.serializers import UserSerializer
-from notifications.models import Notification
+from notifications.models import Notification, AndroidDevice
 from notifications.serializers import NotificationSerializer
 from profiles.serializers import *
 from .util import DeviceType
@@ -76,11 +76,18 @@ class AddDeviceRegistrationView(views.APIView):
         device = DeviceType.get_device_type(device_type)  # Getting device type
 
         if device == DeviceType.IOS:
-            created_device, created = APNSDevice.objects.get_or_create(registration_id=registration_id, user=request.user, name=DeviceType.IOS)
+            created_device, created = APNSDevice.objects.get_or_create(
+                registration_id=registration_id,
+                user=request.user,
+                name=DeviceType.IOS
+            )
 
         elif device == DeviceType.ANDROID:
-            pass
-
+            created_device, created = AndroidDevice.objects.get_or_create(
+                registration_id=registration_id,
+                user=request.user,
+                name=DeviceType.ANDROID
+            )
         else:
             raise NotFound('device type is unknown.')
 

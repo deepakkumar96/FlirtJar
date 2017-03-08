@@ -46,7 +46,7 @@ urlpatterns = [
     url(r'^api/profile/', include('profiles.urls')),
     url(r'^api/location/', include('locations.urls')),
     url(r'^api/notifications/', include('notifications.urls')),
-    url(r'chat/', include('chat.urls')),
+    url(r'^api/chat/', include('chat.urls')),
     url(r'^admin/', admin.site.urls),
     # url(r'^api/auth/', include('rest_auth.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),

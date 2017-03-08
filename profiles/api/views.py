@@ -205,7 +205,7 @@ class UserProfileView(generics.GenericAPIView):
 
     def get(self, request, *args, **kwargs):
         try:
-            user = Account.objects.get(pk=kwargs['pk'])
+            user = request.user  # Account.objects.get(pk=kwargs['pk'])
             serializer = UserProfileViewSerializer(user)
         except Account.DoesNotExist:
             raise NotFound('There is no user with given id.')
@@ -219,7 +219,11 @@ class UserProfileView(generics.GenericAPIView):
                     raise ValueError
             except ValueError:
                 raise NotFound('response query value is invalid.')
-            responsed_users = [u.user_from for u in user.views.select_related('user_from').filter(response=int(response))]
+
+            print('resp : ', response)
+
+            responsed_users = (u.user_from for u in user.views.select_related('user_from').filter(user_to=request.user, response=int(response)))
+            # print([r for r in responsed_users])
             serializer = UserInfoSerializer(responsed_users, many=True)
 
             # filtering response with query parameter view_size
