@@ -201,7 +201,6 @@ class UserProfileView(generics.GenericAPIView):
 
     serializer_class = UserProfileViewSerializer
     queryset = Account.objects.all()
-    lookup_field = 'pk'
 
     def get(self, request, *args, **kwargs):
         try:
@@ -211,7 +210,7 @@ class UserProfileView(generics.GenericAPIView):
             raise NotFound('There is no user with given id.')
 
         # Handling response query param if passed
-        response = request.query_params.get('view_type', None)
+        response = request.query_params.get('response', None)
         if response:
             try:
                 is_response_valid = is_valid_response(int(response))
@@ -226,8 +225,8 @@ class UserProfileView(generics.GenericAPIView):
             # print([r for r in responsed_users])
             serializer = UserInfoSerializer(responsed_users, many=True)
 
-            # filtering response with query parameter view_size
-            query_response_size = request.query_params.get('view_size', None)
+            # filtering response with query parameter response_size
+            query_response_size = request.query_params.get('response_size', None)
             if query_response_size:
                 if query_response_size == 'full':
                     serializer = UserSerializer(responsed_users, many=True)
