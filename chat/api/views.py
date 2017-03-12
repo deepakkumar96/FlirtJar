@@ -26,7 +26,7 @@ class MessageListView(generics.ListCreateAPIView):
                 raise NotFound('user_from is invalid user id.')
 
             serializer = MessageReceiveSerializer(new_messages, many=True).data
-            # new_messages.delete()
+            # new_messages.delete() del
             return Response(serializer)
         else:
             return Response([])
