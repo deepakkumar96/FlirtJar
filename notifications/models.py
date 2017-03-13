@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from push_notifications.models import Device
+from pyfcm import FCMNotification
 
 """"
 
@@ -28,6 +29,23 @@ class PushNotification(TimeStamp):
 
 class AndroidDevice(Device):
     registration_id = models.CharField(verbose_name=_("Registration ID"), max_length=200, unique=True)
+
+    def send_message(self, message_title, message_body, data_message):
+        push_service = FCMNotification(api_key=settings.PUSH_NOTIFICATIONS_SETTINGS.get("FCM_API_KEY"))
+        message_title = message_title
+        message_body = message_body
+        data_message = data_message
+        print('kwarg', message_title, message_body, data_message)
+        print('registration_id', str(self.registration_id))
+        try:
+            result = push_service.notify_single_device(
+                registration_id='054c7c42d7316d9ab30e8d5d328263038f3963c326d19e3d6f6ba48c839ae98f',
+                message_title=message_title,
+                message_body=message_body
+            )
+            print(result)
+        except:
+            pass
 
 
 class Notification(models.Model):

@@ -1,6 +1,9 @@
 
 from django.contrib.gis.db import models
 from flirtjarproject import settings
+
+from pyfcm import FCMNotification
+
 from profiles.models import TimeStamp
 
 

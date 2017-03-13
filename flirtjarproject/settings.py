@@ -231,7 +231,7 @@ LEAFLET_CONFIG = {
 """ Push Notification Settings """
 
 PUSH_NOTIFICATIONS_SETTINGS = {
-
+        "FCM_API_KEY": "AAAAX4lHVjs:APA91bEwGJN9QjDIuNOGMTvavq7PEEcbi28Hxxyc2Q-7XUe2jQgYpn-7h47vP13NJ-Wm2x0JJbSJsYRkduVTNd7qq5Br-8qRye_cZHzoWDFLNOGKfAgGBLQwjnQzG5gyex3_x9tNzzeM",
         "GCM_API_KEY": "AAAAX4lHVjs:APA91bEwGJN9QjDIuNOGMTvavq7PEEcbi28Hxxyc2Q-7XUe2jQgYpn-7h47vP13NJ-Wm2x0JJbSJsYRkduVTNd7qq5Br-8qRye_cZHzoWDFLNOGKfAgGBLQwjnQzG5gyex3_x9tNzzeM",
         "APNS_CERTIFICATE": os.path.join(BASE_DIR, 'flirtjarproject/APNSDevelopmentCertificates.pem'),
 }

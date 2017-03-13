@@ -7,7 +7,6 @@ from notifications.models import Notification
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_welcome_notification(sender, instance=None, created=False, **kwargs):
-    print('SingnalS not => ', instance)
     if created:
         Notification.objects.create(
             user=instance,
