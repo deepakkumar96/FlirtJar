@@ -39,13 +39,16 @@ class AndroidDevice(Device):
         print('registration_id', str(self.registration_id))
         try:
             result = push_service.notify_single_device(
-                registration_id='054c7c42d7316d9ab30e8d5d328263038f3963c326d19e3d6f6ba48c839ae98f',
+                registration_id=str(self.registration_id),
                 message_title=message_title,
                 message_body=message_body
             )
             print(result)
         except:
             pass
+
+    def __str__(self):
+        return self.name + ' - ' + str(self.user)
 
 
 class Notification(models.Model):

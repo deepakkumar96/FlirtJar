@@ -12,24 +12,40 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         # finding users device in APNS
         user_device = instance.user_to.apnsdevice_set.first()
+        if user_device:
+            try:
+                print('sending apns push')
+                user_device.send_message(
+                    message={
+                        'title': 'Chat Message',
+                        'body': 'You have got new message from ' + str(instance.user_from)
+                    },
+                    extra={
+                        'type': 'chat',
+                        'user_from': str(instance.user_from),
+                        'user_to': str(instance.user_to)
+                    }
+                )
+                print('apns sent')
+            except:
+                print('unable to send apns push notifications. to ', user_device)
 
         # finding users device in Android
-        if not user_device:
+        elif not user_device:
             user_device = instance.user_to.androiddevice_set.first()
 
-        if user_device:
-            # sending a push notification to receiver of chat message if user device exist
-            try:
-                print('sending android push')
-                user_device.send_message(message_title='Chat Message',
-                                         message_body='You have got new message from ' + str(instance.user_from),
-                                         data_message={
-                                             'type': 'chat',
-                                             'user_from': str(instance.user_from),
-                                             'user_to': str(instance.user_to)
-                                         })
-
-            except:
-                print('unable to send push notifications. to ', user_device)
+            if user_device:
+                # sending a android push notification to receiver of chat message if user device exist
+                try:
+                    print('sending android push')
+                    user_device.send_message(message_title='Chat Message',
+                                             message_body='You have got new message from ' + str(instance.user_from),
+                                             data_message={
+                                                 'type': 'chat',
+                                                 'user_from': str(instance.user_from),
+                                                 'user_to': str(instance.user_to)
+                                             })
+                except:
+                    print('unable to send push notifications. to ', user_device)
         else:
             print('No device found for ', instance.user_to)

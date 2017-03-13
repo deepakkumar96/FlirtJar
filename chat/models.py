@@ -25,5 +25,5 @@ class Message(models.Model):
     is_seen = models.BooleanField(default=False)
 
     def __str__(self):
-        return str(self.user_from) + ' => ' + str(self.user_to) + ' : ' + self.message_text
+        return str(self.user_from) + ' => ' + str(self.user_to) + ' : ' + str(self.message_text)
 

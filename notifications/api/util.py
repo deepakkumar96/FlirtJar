@@ -15,3 +15,6 @@ class DeviceType:
 
         else:
             return DeviceType.UNKNOWN
+
+
+
