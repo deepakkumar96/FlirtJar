@@ -8,6 +8,7 @@ from push_notifications.models import GCMDevice
 from chat.models import Message
 from chat.serializers import MessageReceiveSerializer, MessageSendSerializer
 from accounts.models import Account
+from chat.api.util import get_all_messages
 
 
 class MessageListView(generics.ListCreateAPIView):
@@ -21,7 +22,7 @@ class MessageListView(generics.ListCreateAPIView):
             try:
                 user_from = Account.objects.get(pk=user_from)
                 print(user_from)
-                new_messages = Message.objects.filter(user_to=request.user, user_from=user_from, is_seen=False)[:25]
+                new_messages = get_all_messages(user_from=user_from, user_to=request.user) # Message.objects.filter(user_to=request.user, user_from=user_from, is_seen=False)[:25]
             except Account.DoesNotExist:
                 raise NotFound('user_from is invalid user id.')
 

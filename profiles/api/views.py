@@ -337,6 +337,7 @@ class CardView(generics.ListAPIView):
         if user_location is None:
             raise NotFound({'detail': 'Your location is undefined.'})
 
+        # accepting values from query params(if passed) for filtering
         min_age_query = request.query_params.get('min_age', None)
         max_age_query = request.query_params.get('max_age', None)
         gender = request.query_params.get('gender', None)
@@ -360,13 +361,14 @@ class CardView(generics.ListAPIView):
                                .order_by('location')
 
         # Filtering With Gender
+        # If gender is passed in query param then it uses that value, else it filters with user's opposite gender
         if gender:
             if gender == 'M':
                 users = users.filter(gender='M')
             elif gender == 'F':
                 users = users.filter(gender='F')
         else:
-            # Filtering with opposite gender
+            # Else Filtering with opposite gender
             users = users.filter(gender=('F' if request.user.gender == 'M' else 'M'))
 
         return Response(UserSerializer(users, many=True).data)
