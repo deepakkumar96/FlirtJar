@@ -16,6 +16,7 @@ def custom_exception_handler(exc, context):
     # Customizing response
     if response is not None:
         errors = []
+        print('exception msg : ', response.data, type(response.data))
         for k, v in response.data.items():
             errors.append("{} : {}".format(k, v))
 

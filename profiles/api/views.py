@@ -4,8 +4,9 @@ from django.db import IntegrityError
 
 from rest_framework import views, viewsets, generics, status
 from rest_framework.response import Response
-from rest_framework.exceptions import NotFound
+from rest_framework.exceptions import NotFound, ValidationError
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.utils.serializer_helpers import ReturnDict, ReturnList
 from datetime import date
 
 from notifications.models import Notification
@@ -80,9 +81,56 @@ class UserImageListView(generics.ListCreateAPIView):
 
     def create(self, request, *args, **kwargs):
         serializer = UserImageSerializer(data=request.data, many=True)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save(user=request.user)
+        try:
+            if serializer.is_valid(raise_exception=True):
+                serializer.save(user=request.user)
+        except:
+            """
+                If the errors received from rest_framework.exceptions.ValidationError is of
+                type ReturnList then here it is get converted into ReturnDict so that errors
+                can be easily handled by custom exception handler(accounts.util.custom_exception_handler)
+            """
+            validation_errors = \
+                serializer.errors if type(serializer.errors) is ReturnDict else serializer.errors[0]
+            raise ValidationError(validation_errors)
         return Response({'data': 'saved'})
+
+
+class UsersImageListView(generics.ListAPIView):
+    """
+        get:
+            # Returns an array of all the images except profile picture for particular given user
+
+        example : GET /api/profile/pictures/user/{id}/
+        <pre>
+            {
+                  "errors": {},
+                  "result": [
+
+                    {
+                      "id": 25,
+                      "image": "https://www.getpostman.com/img/download/install_postman.png?0e807c25fad195b7633ac0a64ee99ea2&"
+                    },
+
+                    {
+                      "id": 24,
+                      "image": "http://www.django-rest-framework.org/img/logo.png"
+                    },
+
+                  ]
+            }
+        </pre>
+
+    """
+
+    serializer_class = UserImageSerializer
+
+    def get_queryset(self):
+        try:
+            user = Account.objects.get(pk=int(self.kwargs['pk']))
+            return UserImages.objects.filter(user=user)
+        except Account.DoesNotExist:
+            raise NotFound('Account does not exist with given user id.')
 
 
 class VirtualCurrencyView(generics.RetrieveUpdateAPIView):
