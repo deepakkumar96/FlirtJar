@@ -9,6 +9,7 @@ from notifications.models import Notification
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         VirtualCurrency.objects.create(user=instance)
+        from accounts.util import CustomJSONRenderer
 
 
 @receiver(post_save, sender=UserGifts)

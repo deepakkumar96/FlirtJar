@@ -334,6 +334,9 @@ class UserProfileView(generics.GenericAPIView):
 
                 if s['response'] == 0:
                     user_to.likes += 1
+                    notifications.append(
+                        create_notification(user_to, user_from.first_name + ' likes you.', Notification.LIKE)
+                    )
 
                 if s['response'] == 1:
                     user_to.skipped += 1
@@ -341,14 +344,16 @@ class UserProfileView(generics.GenericAPIView):
                 if s['response'] == 2:
                     user_to.superlikes += 1
                     notifications.append(
-                        create_notification(user_to, user_from.first_name + ' has crush on you.', Notification.MATCH)
+                        create_notification(user_to, user_from.first_name + ' has crush on you.', Notification.CRUSH)
                     )
 
                 user_to.save()
                 ProfileView.objects.create(user_from=user_from, user_to=user_to, response=s['response'])
 
             # Creating Notification Inside Database
-            print(Notification.objects.bulk_create(notifications))
+            # print(Notification.objects.bulk_create(notifications))
+            for notification in notifications:
+                notification.save()
         else:
             raise NotFound('Invalid Json Data.')
 
@@ -438,7 +443,7 @@ class ProfileRecommendationList(generics.ListAPIView):
         if result_count > total_records:
             result_count = total_records
 
-        rand_ids = sample(xrange(1, total_records), result_count-1)
+        rand_ids = sample(range(1, total_records), result_count-1)
         print(rand_ids)
         return Account.objects.filter(id__in=rand_ids)
 

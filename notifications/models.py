@@ -35,8 +35,8 @@ class AndroidDevice(Device):
         message_title = message_title
         message_body = message_body
         data_message = data_message
-        print('kwarg', message_title, message_body, data_message)
-        print('registration_id', str(self.registration_id))
+        # print('kwarg', message_title, message_body, data_message)
+        # print('registration_id', str(self.registration_id))
         try:
             result = push_service.notify_single_device(
                 registration_id=str(self.registration_id),
