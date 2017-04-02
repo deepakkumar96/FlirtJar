@@ -107,7 +107,8 @@ DATABASES = {
 }
 }
 
-from accounts.util import CustomJSONRenderer
+# from accounts.renderer import CustomJSONRenderer
+
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -116,7 +117,7 @@ REST_FRAMEWORK = {
          # 'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
     'DEFAULT_RENDERER_CLASSES': (
-        CustomJSONRenderer,
+        'accounts.renderer.CustomJSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
 
     ),
