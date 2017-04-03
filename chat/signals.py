@@ -17,7 +17,7 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
                 print('sending apns push')
                 user_device.send_message(
                     message={
-                        'title': instance.user_from,
+                        'title': instance.user_from.get_short_name(),
                         'body': instance.message_text
                     },
                     extra={
@@ -38,7 +38,7 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
                 # sending a android push notification to receiver of chat message if user device exist
                 try:
                     print('sending android push')
-                    user_device.send_message(message_title=str(instance.user_from),
+                    user_device.send_message(message_title=instance.user_from.get_short_name(),
                                              message_body=instance.message_text,
                                              data_message={
                                                  'type': 'chat',
