@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a1bb10df-811f-406e-9161-69a2537efa6d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chat/signals.py" afterPath="$PROJECT_DIR$/chat/signals.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -433,6 +432,14 @@
       <option name="presentableId" value="Default" />
       <updated>1482427796070</updated>
     </task>
+    <task id="LOCAL-00001" summary="title and body of chat message changed">
+      <created>1491257225822</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1491257225822</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TodoView">
@@ -470,6 +477,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="title and body of chat message changed" />
+    <option name="LAST_COMMIT_MESSAGE" value="title and body of chat message changed" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
