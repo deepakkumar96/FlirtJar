@@ -64,7 +64,9 @@ class NotificationToggleView(generics.UpdateAPIView):
 
 
 class AddDeviceRegistrationView(views.APIView):
-    """To Send User device gcm_registration_id or apns_token"""
+    """
+    To register device token(cm_registration_id or apns_token).
+    """
 
     def post(self, request, *args, **kwargs):
         device_type = request.data.get('device_type', None)
@@ -73,27 +75,48 @@ class AddDeviceRegistrationView(views.APIView):
         if (not device_type) or (not registration_id):
             raise NotFound('either registration_id or device is missing.')
 
-        device = DeviceType.get_device_type(device_type)  # Getting device type
+        device = DeviceType.get_device_type(device_type)  # Getting device type from request
 
+        # Checking whether device already exist for user or not
+        user_device = None
         if device == DeviceType.IOS:
-            created_device, created = APNSDevice.objects.get_or_create(
-                registration_id=registration_id,
-                user=request.user,
-                name=DeviceType.IOS
-            )
+            try:
+                user_device = APNSDevice.objects.get(user=request.user)  # checking device for requested user in IOS
+            except APNSDevice.DoesNotExist:
+                pass
 
         elif device == DeviceType.ANDROID:
-            created_device, created = AndroidDevice.objects.get_or_create(
-                registration_id=registration_id,
-                user=request.user,
-                name=DeviceType.ANDROID
-            )
-        else:
-            raise NotFound('device type is unknown.')
+            try:
+                user_device = AndroidDevice.objects.get(user=request.user) # checking device for requested user in Android
+            except AndroidDevice.DoesNotExist:
+                pass
+
+        if not user_device:  # if requested user's device does not exist, then creating device for the user.
+            if device == DeviceType.IOS:
+                user_device = APNSDevice.objects.create(
+                    registration_id=registration_id,
+                    user=request.user,
+                    name=DeviceType.IOS
+                )
+
+            elif device == DeviceType.ANDROID:
+                user_device = AndroidDevice.objects.create(
+                    registration_id=registration_id,
+                    user=request.user,
+                    name=DeviceType.ANDROID
+                )
+            else:
+                raise NotFound('device type is unknown.')
+        else:  # if user's deice exist and need to update its device_token
+            if device:
+                print('UPDATING')
+                user_device.registration_id = registration_id
+                user_device.name = device_type
+                user_device.save()
 
         return Response(
             {
-                'registration_id': created_device.registration_id,
-                'device_type': created_device.name
+                'registration_id': user_device.registration_id,
+                'device_type': user_device.name
             }
         )
