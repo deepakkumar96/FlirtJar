@@ -1,6 +1,7 @@
 from django.db.models import Q
 from django.contrib.gis.measure import D
 from django.db import IntegrityError
+from django.shortcuts import get_object_or_404, render
 
 from rest_framework import views, viewsets, generics, status
 from rest_framework.response import Response
@@ -220,6 +221,17 @@ class GiftSendView(generics.CreateAPIView):
     """
     serializer_class = GiftSendSerializer
     queryset = UserGifts.objects.all()
+
+    def create(self, request, *args, **kwargs):
+        user_coins = VirtualCurrency.objects.get(user=request.user)
+        gift_price = get_object_or_404(Gift, pk=request.data['gift']).price
+        if user_coins.coins >= gift_price:
+            response = super(GiftSendView, self).create(request, *args, **kwargs)
+            user_coins.coins -= gift_price
+            user_coins.save()
+            return response
+        else:
+            raise NotFound("Insufficient  Coins")
 
 
 class UserProfileView(generics.GenericAPIView):
