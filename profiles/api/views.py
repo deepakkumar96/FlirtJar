@@ -168,11 +168,10 @@ class VirtualCurrencyView(generics.RetrieveUpdateAPIView):
     def put(self, request, *args, **kwargs):
         """
         # To Update, Add, Subtract coins for users
-        ---
 
-        request_serializer: VirtialCurrencyOperation
-        response_serializer: VirtialCurrencyOperation
+        request body: <pre>{ "coins": 10, "user":1, "operation":"add"}</pre>
 
+        operation can be : <pre>"add" or "sub"</pre>
 
         """
         operation = self.request.data.get('operation', None)
