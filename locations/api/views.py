@@ -84,6 +84,11 @@ class NearByLocationUsers(generics.RetrieveAPIView):
     * `{near_by_distance}`: Specifies the distance under which other profile will be returned.
     * `{distance_unit}`: Specifies unit of distance`(`Possible units are `km` - Kilometer, `m` - meters, `mm` - milli-meter`)`
 
+    ### __2.1. Query Parameters__(URL) :
+    * `status`: specify map filters
+    * `gender`: Set gender(M, F, M_F) to filter nearby users by gender
+
+
     ### __3. Response__
     Return An Array of user profile with the following information.
 
