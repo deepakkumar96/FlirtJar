@@ -11,16 +11,12 @@ RELATIONSHIP_STATUS = (
 )
 
 STATUS = (
-    ('walk', 'Walk'),
     ('coffee', 'Coffee'),
-    ('drink', 'Drink'),
-    ('long_drive', 'Long Drive'),
-    ('lunch', 'Lunch'),
-    ('dinner', 'Dinner'),
     ('detour', 'Detour'),
-    ('movie', 'Movie'),
+    ('movie', 'Catch A Movie'),
     ('bite', 'Grab A Bite'),
-    ('run', 'Go For Run'),
+    ('run', 'Go For A Run'),
+    ('out', 'Go Out'),
     ('drunk', 'Get Drunk')
 
 )
