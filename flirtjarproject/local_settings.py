@@ -140,7 +140,7 @@ REST_FRAMEWORK_DOCS = {
     'HIDE_DOCS': False  # Default: False
 }
 
-"""
+
 DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.versions.VersionsPanel',
     'debug_toolbar.panels.timer.TimerPanel',
@@ -156,17 +156,18 @@ DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.redirects.RedirectsPanel',
 ]
 INTERNAL_IPS = ('127.0.0.1',)
-"""
+
 
 def custom_show_toolbar(request):
     return True  # Always show toolbar, for example purposes only.
 
+
+DEBUG_TOOLBAR_PATCH_SETTINGS = False
+
 DEBUG_TOOLBAR_CONFIG = {
-    'INTERCEPT_REDIRECTS': True,
-    'SHOW_TOOLBAR_CALLBACK': custom_show_toolbar,
-    'HIDE_DJANGO_SQL': False,
-    'TAG': 'div',
-    'ENABLE_STACKTRACES': True,
+    'SHOW_TOOLBAR_CALLBACK': lambda request: not request.is_ajax() and request.META.get('REMOTE_ADDR', None) in INTERNAL_IPS,
+    'INTERCEPT_REDIRECTS': False,
+
 }
 
 

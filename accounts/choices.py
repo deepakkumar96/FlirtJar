@@ -18,7 +18,11 @@ STATUS = (
     ('lunch', 'Lunch'),
     ('dinner', 'Dinner'),
     ('detour', 'Detour'),
-    ('movie', 'Movie')
+    ('movie', 'Movie'),
+    ('bite', 'Grab A Bite'),
+    ('run', 'Go For Run'),
+    ('drunk', 'Get Drunk')
+
 )
 
 

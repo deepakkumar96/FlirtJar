@@ -16,6 +16,7 @@ from profiles.serializers import *
 from accounts.serializers import UserSerializer
 from .util import convert_to_reponseid, is_valid_response, get_user_match
 from accounts.permissions import AllowOwner, IsInstagramUser
+from django.db import connection
 
 
 class UserRatingeDetail(generics.RetrieveAPIView):
@@ -222,12 +223,18 @@ class GiftSendView(generics.CreateAPIView):
     queryset = UserGifts.objects.all()
 
     def create(self, request, *args, **kwargs):
+
         user_coins = VirtualCurrency.objects.get(user=request.user)
         gift_price = get_object_or_404(Gift, pk=request.data['gift']).price
         if user_coins.coins >= gift_price:
             response = super(GiftSendView, self).create(request, *args, **kwargs)
             user_coins.coins -= gift_price
             user_coins.save()
+
+            """ Debugging Queries
+            for q in connection.queries:
+                print("\n", q, "\n")
+            """
             return response
         else:
             raise NotFound("Insufficient  Coins")
@@ -434,7 +441,6 @@ class CardView(generics.ListAPIView):
         else:
             # Else Filtering with opposite gender
             users = users.filter(gender=('F' if request.user.gender == 'M' else 'M'))
-
         return Response(UserSerializer(users, many=True).data)
 
 
