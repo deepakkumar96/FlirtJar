@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.exceptions import NotFound
@@ -31,4 +31,21 @@ class MessageListView(generics.ListCreateAPIView):
             return Response(serializer)
         else:
             return Response([])
+
+
+class DeleteChatHistoryView(generics.DestroyAPIView):
+    """
+    Clear all the chat history with the given user
+    """
+    def destroy(self, request, *args, **kwargs):
+        other_user = get_object_or_404(Account, pk=kwargs['user'])
+
+        del_cnt = Message.objects.filter(user_from=request.user, user_to=other_user, is_seen=False).delete()[0]
+        del_cnt += Message.objects.filter(user_from=other_user, user_to=request.user, is_seen=False).delete()[0]
+
+        return Response({'result': str(del_cnt) + ' messages deleted'})
+
+
+
+
 
