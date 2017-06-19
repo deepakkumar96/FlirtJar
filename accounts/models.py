@@ -80,7 +80,7 @@ class Account(AbstractBaseUser):
 
     # Methods
     def __str__(self):
-        return self.first_name + ' : ' + self.oauth_id
+        return self.first_name + '(' + str(self.pk) + ')' + ' : ' + self.oauth_id
 
     def get_full_name(self):
         return self.first_name + ' ' + self.last_name

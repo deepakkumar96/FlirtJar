@@ -6,6 +6,7 @@ from accounts.util import *
 from django.urls import reverse
 from rest_framework import status
 from profiles.models import VirtualCurrency
+from rest_framework.authtoken.models import Token
 
 # Create your tests here.
 
@@ -35,7 +36,7 @@ class UserListViewApiTest(APITestCase):
             'first_name': 'Test_1'
         }
         response = self.client.post(url, data, format='json')
-        print(response.data)
+        # print(response.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(Account.objects.count(), 1)
 
@@ -47,3 +48,11 @@ class UserListViewApiTest(APITestCase):
 
         self.assertEqual(user_currency.coins, 2)
         self.assertEqual(user_currency.user, created_account)
+
+        created_token = Token.objects.get(user=created_account)
+        self.assertEqual(created_token.key, response.data['Token'])
+
+        # Signing-In again with the same credentials
+        response2 = self.client.post(url, {'oauth_id': data['oauth_id']}, format='json')
+
+        self.assertEqual(response.data, response2.data)

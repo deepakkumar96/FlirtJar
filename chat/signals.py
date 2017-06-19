@@ -8,7 +8,7 @@ from .models import Message
 
 
 @receiver(post_save, sender=Message)
-def create_auth_token(sender, instance=None, created=False, **kwargs):
+def send_notification_on_message(sender, instance=None, created=False, **kwargs):
     if created:
         # finding users device in APNS
         user_device = instance.user_to.apnsdevice_set.first()

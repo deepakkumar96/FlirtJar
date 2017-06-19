@@ -11,3 +11,5 @@ admin.site.register(Gift)
 admin.site.register(UserGifts)
 admin.site.register(UserImages)
 
+admin.site.register(CardView)
+

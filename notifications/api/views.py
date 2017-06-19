@@ -66,6 +66,14 @@ class NotificationToggleView(generics.UpdateAPIView):
 class AddDeviceRegistrationView(views.APIView):
     """
     To register device token(cm_registration_id or apns_token).
+    * `Request - `
+        <pre>
+            POST /api/notification/device/
+         {
+        "registration_id": "054c7c42d7316d9ab30e8d5d328263038f3963c326d19e3d6f6ba48c839ae98f",
+        "device_type": "ios"
+         }
+        </pre>`
     """
 
     def post(self, request, *args, **kwargs):

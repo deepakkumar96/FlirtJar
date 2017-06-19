@@ -130,3 +130,18 @@ class UserImages(models.Model):
 
     def __str__(self):
         return str(self.user)
+
+
+class CardView(models.Model):
+    user_from = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name='seen_cards'
+    )
+
+    user_to = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        # related_name='seen_cards'
+    )
+
+    def __str__(self):
+        return str(self.user_from) + ' => ' + str(self.user_to)

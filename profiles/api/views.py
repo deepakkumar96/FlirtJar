@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, render
 
 from rest_framework import views, viewsets, generics, status
 from rest_framework.response import Response
-from rest_framework.exceptions import NotFound, ValidationError
+from rest_framework.exceptions import *
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.utils.serializer_helpers import ReturnDict, ReturnList
 from datetime import date
@@ -16,6 +16,7 @@ from profiles.serializers import *
 from accounts.serializers import UserSerializer
 from .util import convert_to_reponseid, is_valid_response, get_user_match
 from accounts.permissions import AllowOwner, IsInstagramUser
+from profiles.models import CardView as UserCardView
 from django.db import connection
 
 
@@ -389,6 +390,28 @@ class UserMatchView(generics.ListAPIView):
         return get_user_match(self.request.user)
 
 
+class UnMatchUserView(generics.DestroyAPIView):
+    """
+    Un-Match given user
+    """
+    serializer_class = UserInfoSerializer
+
+    def delete(self, request, *args, **kwargs):
+        usr_to_be_unmatched = request.data.get('user_to_unmatch', None)
+        if usr_to_be_unmatched:
+            usr_to_be_unmatched = get_object_or_404(Account, pk=usr_to_be_unmatched)
+            print('un-matching ', usr_to_be_unmatched)
+            del_cnt = UserMatch.objects.filter(user_from=request.user, user_to=usr_to_be_unmatched).delete()[0]
+            del_cnt += UserMatch.objects.filter(user_to=request.user, user_from=usr_to_be_unmatched).delete()[0]
+            print(del_cnt)
+            if del_cnt > 0:
+                return Response(UserInfoSerializer(usr_to_be_unmatched).data)
+            else:
+                raise NotFound({'detail': 'request user is not matched.'})
+        else:
+            raise ValidationError({'detail': 'request must contain valid user_id to unmatch.'})
+
+
 class CardView(generics.ListAPIView):
     """
     # To return cards
@@ -441,6 +464,77 @@ class CardView(generics.ListAPIView):
         else:
             # Else Filtering with opposite gender
             users = users.filter(gender=('F' if request.user.gender == 'M' else 'M'))
+        return Response(UserSerializer(users, many=True).data)
+
+
+class UniqueCardView(generics.ListAPIView):
+    """
+    # To return cards
+    """
+    serializer_class = UserSerializer
+    queryset = Account.objects.all()
+
+    def get(self, request, *args, **kwargs):
+
+        # Default values for filter
+        min_age = 16
+        max_age = 32
+        user_location = request.user.location
+        distance = 1000
+
+        # Validating
+        if user_location is None:
+            raise NotFound({'detail': 'Your location is undefined.'})
+
+        # accepting values from query params(if passed) for filtering
+        min_age_query = request.query_params.get('min_age', None)
+        max_age_query = request.query_params.get('max_age', None)
+        gender = request.query_params.get('gender', None)
+
+        try:
+            # changing min & max age according to query params if passed
+            min_age = int(min_age_query if min_age_query else min_age)
+            max_age = int(max_age_query if max_age_query else max_age)
+        except:
+            pass
+
+        # Calculating required_date according given age
+        today = date.today()
+        required_min_date = today.replace(year=today.year - min_age)
+        required_max_date = today.replace(year=today.year - max_age)
+
+        # Filtering With required date and location
+        users = Account.objects.filter(dob__gte=required_max_date, dob__lte=required_min_date)\
+                               .filter(location__distance_lte=(user_location, D(km=distance)))\
+                               .filter(show_me_on_jar=True)\
+
+        """
+        Filtering With Gender
+        If gender is passed in query param then it uses that value, else it filters with user's opposite gender
+        """
+        if gender:
+            if gender == 'M':
+                users = users.filter(gender='M')
+            elif gender == 'F':
+                users = users.filter(gender='F')
+        else:
+            # Else Filtering with opposite gender
+            users = users.filter(gender=('F' if request.user.gender == 'M' else 'M'))
+
+        # fetching only those cards which user has never seen
+        users = users.exclude(id__in=request.user.seen_cards.values_list('user_to', flat=True))[:5]
+
+        """
+        Saving all the cards that is going to be returned to user,
+        so that next time it wont be shown
+        """
+        seen_cards = []
+        for user in users:
+            seen_cards.append(UserCardView(user_from=request.user, user_to=user))
+        print(seen_cards)
+        UserCardView.objects.bulk_create(seen_cards)
+
+        print(users.query)
         return Response(UserSerializer(users, many=True).data)
 
 
