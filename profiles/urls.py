@@ -12,7 +12,7 @@ urlpatterns = [
     url(r'^gifts/$', views.UserGiftView.as_view(), name='user_gifts'),
     url(r'^gifts/send/$', views.GiftSendView.as_view(), name='gift_send'),
 
-    url(r'^cards2/$', views.CardView.as_view(), name='cards'),
+    url(r'^same-cards/$', views.CardView.as_view(), name='cards'),
     url(r'^cards/$', views.UniqueCardView.as_view(), name='cards2'),
     url(r'recommendation/$', views.ProfileRecommendationList.as_view(), name='profile_recommendation'),
     url(r'^pictures/$', views.UserImageListView.as_view(), name='cards'),

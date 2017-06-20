@@ -17,7 +17,7 @@ from accounts.serializers import UserSerializer
 from .util import convert_to_reponseid, is_valid_response, get_user_match
 from accounts.permissions import AllowOwner, IsInstagramUser
 from profiles.models import CardView as UserCardView
-from django.db import connection
+
 
 
 class UserRatingeDetail(generics.RetrieveAPIView):
@@ -531,10 +531,10 @@ class UniqueCardView(generics.ListAPIView):
         seen_cards = []
         for user in users:
             seen_cards.append(UserCardView(user_from=request.user, user_to=user))
-        print(seen_cards)
+        # print(seen_cards)
         UserCardView.objects.bulk_create(seen_cards)
 
-        print(users.query)
+        # print(users.query)
         return Response(UserSerializer(users, many=True).data)
 
 
