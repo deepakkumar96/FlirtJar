@@ -17,6 +17,6 @@ def create_notification_on_sending_gift(sender, instance=None, created=False, **
         Notification.objects.create(
             user=instance.user_to,
             notification_type=Notification.GIFT,
-            notification_text=str(instance.user_from) + ' sent you a gift.',
+            notification_text=str(instance.user_from.get_short_name()) + ' sent you a gift.',
             notification_icon='fjhf',
         )

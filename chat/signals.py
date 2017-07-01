@@ -11,10 +11,11 @@ from .models import Message
 def send_notification_on_message(sender, instance=None, created=False, **kwargs):
     if created:
         # finding users device in APNS
+        """
         user_device = instance.user_to.apnsdevice_set.first()
         if user_device:
             try:
-                print('sending apns push')
+                print('sending apns push : ', type(user_device))
                 user_device.send_message(
                     message={
                         'title': instance.user_from.get_short_name(),
@@ -31,21 +32,23 @@ def send_notification_on_message(sender, instance=None, created=False, **kwargs)
                 print('unable to send apns push notifications. to ', user_device)
 
         # finding users device in Android
-        elif not user_device:
-            user_device = instance.user_to.androiddevice_set.first()
+        elif not user_device:"""
 
-            if user_device:
-                # sending a android push notification to receiver of chat message if user device exist
-                try:
-                    print('sending android push')
-                    user_device.send_message(message_title=instance.user_from.get_short_name(),
-                                             message_body=instance.message_text,
-                                             data_message={
+        # Sending notification to user device using FCM
+        user_device = instance.user_to.androiddevice_set.first()
+
+        if user_device:
+            # sending a android push notification to receiver of chat message if user device exist
+            try:
+                print('sending android push')
+                user_device.send_message(message_title=instance.user_from.get_short_name(),
+                                         message_body=instance.message_text,
+                                         data_message={
                                                  'type': 'chat',
                                                  'user_from': str(instance.user_from),
                                                  'user_to': str(instance.user_to)
-                                             })
-                except:
-                    print('unable to send push notifications. to ', user_device)
+                                         })
+            except:
+                print('unable to send push notifications. to ', user_device)
         else:
             print('No device found for ', instance.user_to)

@@ -87,27 +87,14 @@ class AddDeviceRegistrationView(views.APIView):
 
         # Checking whether device already exist for user or not
         user_device = None
-        if device == DeviceType.IOS:
-            try:
-                user_device = APNSDevice.objects.get(user=request.user)  # checking device for requested user in IOS
-            except APNSDevice.DoesNotExist:
-                pass
-
-        elif device == DeviceType.ANDROID:
+        if device == DeviceType.ANDROID or device_type == DeviceType.IOS:
             try:
                 user_device = AndroidDevice.objects.get(user=request.user) # checking device for requested user in Android
             except AndroidDevice.DoesNotExist:
                 pass
 
         if not user_device:  # if requested user's device does not exist, then creating device for the user.
-            if device == DeviceType.IOS:
-                user_device = APNSDevice.objects.create(
-                    registration_id=registration_id,
-                    user=request.user,
-                    name=DeviceType.IOS
-                )
-
-            elif device == DeviceType.ANDROID:
+            if device == DeviceType.ANDROID or device == DeviceType.IOS:
                 user_device = AndroidDevice.objects.create(
                     registration_id=registration_id,
                     user=request.user,
@@ -115,7 +102,7 @@ class AddDeviceRegistrationView(views.APIView):
                 )
             else:
                 raise NotFound('device type is unknown.')
-        else:  # if user's deice exist and need to update its device_token
+        else:  # if user's device exist and need to update its device_token
             if device:
                 print('UPDATING')
                 user_device.registration_id = registration_id
