@@ -37,7 +37,6 @@ def schema_view(request):
     generator = schemas.SchemaGenerator(title='FlirtJar API')
     return response.Response(generator.get_schema(request=request))
 
-
 urlpatterns = [
 
     url(r'^api/docs/intro/', loc_view.api_doc_intro),
@@ -57,7 +56,6 @@ urlpatterns = [
     # Urls that doesn't belong to any specific app
     url(r'api/gifts/$', GiftsListView.as_view(), name='gift_view'),
 
-
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
@@ -67,6 +65,3 @@ if settings.DEBUG:
     ] + urlpatterns
 
 urlpatterns = format_suffix_patterns(urlpatterns)
-
-
-

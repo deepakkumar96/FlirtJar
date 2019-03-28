@@ -328,18 +328,16 @@ class UserProfileView(generics.GenericAPIView):
         server time.
 
         """
-
         serializer = UserProfileMatchResponseSerializer(data=request.data, many=True)
         if serializer.is_valid():
             notifications = []
             for s in serializer.data:
-                print('s', s)
                 # Checking For UserMatch, Likes, SuperLikes, Views
                 user_from = Account.objects.get(pk=s['user_from'])
                 user_to = Account.objects.get(pk=s['user_to'])
+                
                 if s['response'] != 1 and ProfileView.objects.filter(user_from=user_to, user_to=user_from).filter(Q(response=0) | Q(response=2)).count() > 0:
                     try:
-                        print('Enter ', user_from, ' ', user_to)
                         UserMatch.objects.create(user_from=user_from, user_to=user_to)
                         # Notifying User's about their match
                         notifications.append(
@@ -349,6 +347,7 @@ class UserProfileView(generics.GenericAPIView):
                             create_notification(user_to, 'You have a match with ' + user_from.first_name, Notification.MATCH)
                         )
                     except IntegrityError:
+                        print('IntegrityError')
                         pass
 
                 if s['response'] == 0:
@@ -366,17 +365,20 @@ class UserProfileView(generics.GenericAPIView):
                         create_notification(user_to, user_from.first_name + ' has crush on you.', Notification.CRUSH)
                     )
 
-                user_to.save()
-                ProfileView.objects.create(user_from=user_from, user_to=user_to, response=s['response'])
+                try:
+                    # This might throw a IntegrityError due to ProfileView duplication
+                    ProfileView.objects.create(user_from=user_from, user_to=user_to, response=s['response'])
+                    user_to.save() # update changes if ProfileView is not duplicated
+                except IntegrityError:
+                    pass
 
             # Creating Notification Inside Database
-            # print(Notification.objects.bulk_create(notifications))
             for notification in notifications:
                 notification.save()
         else:
             raise NotFound('Invalid Json Data.')
 
-        return Response({'detail': 'data saved.'})
+        return Response({'detail': 'data saved.'}, status=status.HTTP_201_CREATED)
 
 
 class UserMatchView(generics.ListAPIView):

@@ -236,3 +236,69 @@ PUSH_NOTIFICATIONS_SETTINGS = {
         "APNS_CERTIFICATE": os.path.join(BASE_DIR, 'flirtjarproject/APNSDevelopmentCertificates.pem'),
 }
 
+
+# Override production variables if DJANGO_DEVELOPMENT env variable is set
+if os.environ.get('DJANGO_DEVELOPMENT') is not None:
+    # export DJANGO_DEVELOPMENT=true
+    print('DEBUG MODE')
+    DEBUG = True
+
+    ALLOWED_HOSTS += ['localhost', '127.0.0.1', 'flirtjar.com', '*']
+
+
+    # Application definition
+
+    INSTALLED_APPS += [
+        'debug_toolbar',
+        'drf_autodocs',
+        'autofixture'
+    ]
+
+    MIDDLEWARE = [
+        'debug_toolbar.middleware.DebugToolbarMiddleware',  # Debug
+    ] + MIDDLEWARE
+
+    # Database
+    # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
+
+    DATABASES = {
+    'default': {
+            'ENGINE': 'django.contrib.gis.db.backends.postgis',
+            'NAME': 'fjdb',
+            'USER': 'fjuser',
+            'PASSWORD': '12345six',
+            'HOST': 'localhost',
+            'PORT': '',
+    }
+    }
+
+
+    DEBUG_TOOLBAR_PANELS = [
+        'debug_toolbar.panels.versions.VersionsPanel',
+        'debug_toolbar.panels.timer.TimerPanel',
+        'debug_toolbar.panels.settings.SettingsPanel',
+        'debug_toolbar.panels.headers.HeadersPanel',
+        'debug_toolbar.panels.request.RequestPanel',
+        'debug_toolbar.panels.sql.SQLPanel',
+        'debug_toolbar.panels.staticfiles.StaticFilesPanel',
+        'debug_toolbar.panels.templates.TemplatesPanel',
+        'debug_toolbar.panels.cache.CachePanel',
+        'debug_toolbar.panels.signals.SignalsPanel',
+        'debug_toolbar.panels.logging.LoggingPanel',
+        'debug_toolbar.panels.redirects.RedirectsPanel',
+    ]
+
+    INTERNAL_IPS = ['127.0.0.1',]
+
+
+    def custom_show_toolbar(request):
+        return True  # Always show toolbar, for example purposes only.
+
+    """    
+    DEBUG_TOOLBAR_PATCH_SETTINGS = False
+
+    DEBUG_TOOLBAR_CONFIG = {
+        'SHOW_TOOLBAR_CALLBACK': lambda request: not request.is_ajax() and request.META.get('REMOTE_ADDR', None) in INTERNAL_IPS,
+        'INTERCEPT_REDIRECTS': False,
+
+    }"""

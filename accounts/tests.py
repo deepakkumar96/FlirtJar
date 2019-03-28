@@ -29,6 +29,11 @@ class AccountModelTest(TestCase):
 
 
 class UserListViewApiTest(APITestCase):
+
+    def setUp(self):
+        print("called")
+        self.obj = Account.objects.count()
+
     def test_create_account(self):
         url = reverse('user_list_view')
         data = {
@@ -56,3 +61,9 @@ class UserListViewApiTest(APITestCase):
         response2 = self.client.post(url, {'oauth_id': data['oauth_id']}, format='json')
 
         self.assertEqual(response.data, response2.data)
+
+
+    def test_another(self):
+        # print(self.obj)
+        # self.assertEqual(True, True)
+        pass

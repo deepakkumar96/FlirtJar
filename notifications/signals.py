@@ -19,7 +19,7 @@ def create_welcome_notification(sender, instance=None, created=False, **kwargs):
 @receiver(post_save, sender=Notification)
 def notify_user_for_notification_event(sender, instance=None, created=False, **kwargs):
     if created:
-        print('sending notification')
+        #print('sending notification')
         try:
             user_device = get_user_device(instance.user)
             user_device.send_push_notification(title=instance.notification_type,
@@ -29,4 +29,5 @@ def notify_user_for_notification_event(sender, instance=None, created=False, **k
                                                    'user_to': str(instance.user)
                                                })
         except DeviceNotFound:
-            print('users device does not exist.')
+            pass
+            # print('users device does not exist.')
